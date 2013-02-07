@@ -1,4 +1,4 @@
-package testgame;
+package WormsGame;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -50,16 +50,22 @@ public class Board extends JPanel implements ActionListener,KeyListener  {
 
 
     public void paint(Graphics g) {
+    	
         super.paint(g);
+        
         if (ingame) {
+        	
             Graphics2D g2d = (Graphics2D)g;
            
-            for(int i=0;i<player.staticObjects.size();i++){
-            g2d.drawImage(player.staticObjects.get(i).getImage(),player.staticObjects.get(i).getX(), player.staticObjects.get(i).getY(), this);
+            for(int i=0; i < player.staticObjects.size();i++){
+            	
+            	g2d.drawImage(player.staticObjects.get(i).getImage(),player.staticObjects.get(i).getX(), player.staticObjects.get(i).getY(), this);
             }
-            g2d.drawImage(player.getImage(), player.getX()+player.dx, player.getY()+player.dy, this);
+           
+            	g2d.drawImage(player.getImage(), player.getX()+player.dx, player.getY()+player.dy, this);
              
-             } else {
+        } else {
+        	
             String msg = "Game Over";
             Font small = new Font("Helvetica", Font.BOLD, 14);
             FontMetrics metr = this.getFontMetrics(small);
@@ -69,6 +75,7 @@ public class Board extends JPanel implements ActionListener,KeyListener  {
             g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2,
                          B_HEIGHT / 2);
         }
+        
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
