@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
 
 public class MainPlayer {     //the class for the user controlled player
@@ -13,7 +14,7 @@ public class MainPlayer {     //the class for the user controlled player
 	}
 	
 	
-	public void renderScreen(){
+	public void renderScreen(ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r){
 	
 	}
 	
