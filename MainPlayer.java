@@ -10,7 +10,19 @@ public class MainPlayer {     //the class for the user controlled player
 	int imageWidth,imageHeight; //width and height of the playerImage image
 	public MainPlayer(){
 	
+			
+	}
 	
+	public int moveLeft(){
+		
+		x = x-1;	
+		return x;
+	}
+	
+	public int moveRight(){
+		
+		x= x+1;
+		return y;
 	}
 	
 	
