@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.Rectangle;
 
 
 public class ReactiveObjects {
@@ -7,29 +8,20 @@ public class ReactiveObjects {
 	Image currentImage;
 	int x,y; //x and y coordinate for drawing the image on the screen
 	int imageWidth,imageHeight; //width and height of the image of the object
-	
-	public ReactiveObjects(){
-	
+	Rectangle rectangle;
+	public ReactiveObjects(int xvalue, int yvalue, Image[] i){		//constructor
+		this.x=xvalue;
+		this.y=yvalue;
+		this.annimationImages=i;
+		this.currentImage=i[0];
+		this.rectangle=new Rectangle(xvalue,yvalue,i[0].getWidth(null),i[0].getHeight(null));
 	}
 	
-	public static int[] missileMovement(int x, int y, int time){ //function which calculates the new position after a time
-		
-		int t = time;	//starts a clock to update the missile
-		double u = 10; //Initial speed of missile
-		double a = -10; //acceleration due to gravity
-		
-				
-		x = x + 10; // creates a constant horizontal speed 
-					
-		double s = u*t + 0.5 * a * t * t; //equation for vertical position at a given time
-				
-		y = y + (int)Math.round(s); //old position plus change in position
-		
-		int[] xy = {x, y}; //out put coordinates
-		
-		return xy;				
-		
-	 }
-	
-	
+	public void destroy(){
+	//call this function when objects will be destroyed	
+	}
+
 }
+	
+	
+
