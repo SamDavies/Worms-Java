@@ -86,8 +86,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener{
 				  player.startJump();
 		  if(keycode==KeyEvent.VK_SPACE)
 			  if(player.directionRight==true)
-				  missiles.add(new Weapon(player,staticobjects,reactiveobjects,true,4000, Math.PI*0.4));
-			  else missiles.add(new Weapon(player,staticobjects,reactiveobjects,false,4000, Math.PI*0.4));
+				  missiles.add(new Weapon(player,staticobjects,reactiveobjects,true,1000, Math.PI*0.4));
+			  else missiles.add(new Weapon(player,staticobjects,reactiveobjects,false,1000, Math.PI*0.4));
 		
 	}
 
