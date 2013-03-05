@@ -19,7 +19,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener{
 	Image backgroundImage;
 	ArrayList<StaticObjects> staticobjects;
 	ArrayList<ReactiveObjects> reactiveobjects;
-	ArrayList<Missile> missiles;
+	ArrayList<Weapon> missiles;
 	int [][] staticPositions={
 	 {280,370},{150,550},{200,400}		
 	 };
@@ -41,7 +41,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener{
 	    
 		staticobjects = new ArrayList<StaticObjects>();
 		reactiveobjects = new ArrayList<ReactiveObjects>();
-		missiles = new ArrayList<Missile>();
+		missiles = new ArrayList<Weapon>();
 		
 		for(int i=0;i<staticPositions.length;i++)
 		{   
@@ -86,8 +86,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener{
 				  player.startJump();
 		  if(keycode==KeyEvent.VK_SPACE)
 			  if(player.directionRight==true)
-				  missiles.add(new Missile(player,staticobjects,reactiveobjects,true,200));
-			  else missiles.add(new Missile(player,staticobjects,reactiveobjects,false,200));
+				  missiles.add(new Weapon(player,staticobjects,reactiveobjects,true,4000, Math.PI*0.4));
+			  else missiles.add(new Weapon(player,staticobjects,reactiveobjects,false,4000, Math.PI*0.4));
 		
 	}
 
@@ -97,7 +97,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener{
 		
 	}
 
-	public void invisibleObjectCleaner(ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r,ArrayList<Missile> m){
+	public void invisibleObjectCleaner(ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r,ArrayList<Weapon> m){
 		if(s.isEmpty()==false)
 			for(int i=0;i<s.size();i++)
 				if(s.get(i).visible==false)
@@ -131,7 +131,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener{
 		renderScreen(player, staticobjects, reactiveobjects, missiles, g);
 	}
 	
-	public void renderScreen(MainPlayer p,ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r,ArrayList<Missile> m,Graphics g){
+	public void renderScreen(MainPlayer p,ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r,ArrayList<Weapon> m,Graphics g){
 		
 		g.drawImage(backgroundImage, 0, 0, null);
 		g.drawImage(p.playerImage, p.x, p.y, null);
