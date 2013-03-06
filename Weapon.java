@@ -27,7 +27,7 @@ public class Weapon implements ActionListener {
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
 	private int[][] trajectoryIncrements; // used to store the trajectory
 	private int trajectoryIndex; // this represents the index in
-									// trajectoryIncrements
+	private int expIndex; // trajectoryIncrements
 
 	// that we are currently at
 
@@ -38,9 +38,9 @@ public class Weapon implements ActionListener {
 		visible = true;
 		staticobjects = s;
 		reactiveobjects = r;
-		
+
 		loadAnnimationImages();
-		
+
 		player = p;
 		if (l == true) {
 			x = p.x + p.playerImage.getWidth(null);
@@ -60,15 +60,15 @@ public class Weapon implements ActionListener {
 	}
 
 	public void loadAnnimationImages() {
-		
-		for(int i=0; i<8 ;i++){
-		ImageIcon tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"grenade"+i+".png"));
-		annimationImages[i]= tempImageIcon.getImage();
+
+		for (int i = 0; i < 8; i++) {
+			ImageIcon tempImageIcon = new ImageIcon(this.getClass()
+					.getResource("grenade" + i + ".png"));
+			annimationImages[i] = tempImageIcon.getImage();
 		}
-		
+
 		currentImage = annimationImages[0];
-		
+
 	}
 
 	public boolean checkCollisionStatic() {
@@ -100,9 +100,29 @@ public class Weapon implements ActionListener {
 
 	}
 
-	public void destroy() {
-		timer.stop();
-		visible = false;
+	public void destroy() { //applies the explosion images and loops through them before ending the timer 
+		if (expIndex == 0) {
+			x = x - 75;
+			y = y - 48;
+		}
+
+		if (expIndex > 71) { //this goes through 18 frames with 4 events of each
+			timer.stop();
+			visible = false;
+		} else {
+			explosion();
+		}
+	}
+
+	public void explosion() {
+		int i = expIndex / 4; //new images every 4 events
+
+		ImageIcon tempImageIcon = new ImageIcon(this.getClass().getResource(
+				"explosion" + i + ".png"));
+		currentImage = tempImageIcon.getImage();
+
+		expIndex++;
+
 	}
 
 	public void destroy(ReactiveObjects r) {
@@ -123,7 +143,13 @@ public class Weapon implements ActionListener {
 
 		for (int i = 1; i < 1000; i++) {
 
-			double s = vertSpeed * t + 0.5 * -200 * i * t * i * t; // slower gravity set from real -980m/s2 to -200m/s2
+			double s = vertSpeed * t + 0.5 * -200 * i * t * i * t; // slower
+																	// gravity
+																	// set from
+																	// real
+																	// -980m/s2
+																	// to
+																	// -200m/s2
 			xyPos[i][1] = (int) Math.round(s) - xyPos[i - 1][1];
 			xyPos[i][0] = (int) Math.round(horrSpeed);
 		}
@@ -150,14 +176,20 @@ public class Weapon implements ActionListener {
 				if (trajectoryIndex < trajectoryIncrements.length) {
 					move();
 					updateRectangle();
-					currentImage = annimationImages[trajectoryIndex%7];
+					currentImage = annimationImages[trajectoryIndex % 7];
 					trajectoryIndex++;
-				} else
+				} else {
 					visible = false;
-			} else
+				}
+			} else {
+
 				destroy();
-		} else
+
+			}
+		} else {
 			destroy();
+
+		}
 
 	}
 
