@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -12,7 +14,8 @@ import javax.swing.JPanel;
 //in this class the arraylists of different objects as well as the player object are created
 //it is also the class that listens for key inputs by the user
 
-public class MainClass extends JPanel implements ActionListener, KeyListener {
+public class MainClass extends JPanel implements ActionListener, KeyListener,
+		MouseListener {
 
 	Timer timer; // this is the object which is going to call the function
 					// actionPerformed
@@ -23,6 +26,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener {
 	ArrayList<Weapon> missiles;
 	int[][] staticPositions = { { 280, 370 }, { 150, 550 }, { 200, 400 } };
 	int[][] reactivePositions = { { 180, 300 }, { 350, 480 } };
+
+	private double clickVelocity; // stores the velocity for weapon
+	int[] mouseXY = new int[2]; //stores coordinates  of mouse
 
 	public static void main(String[] args) {
 
@@ -52,6 +58,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener {
 
 		player = new MainPlayer(50, 300, staticobjects, reactiveobjects);
 		this.addKeyListener(this);
+		this.addMouseListener(this);
 		timer = new Timer(20, this);
 		timer.addActionListener(this);
 		timer.start();
@@ -71,6 +78,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener {
 
 	public void keyPressed(KeyEvent e) { // fires automatically when a key is
 											// pressed
+
 		int keycode = e.getKeyCode();
 		if (keycode == KeyEvent.VK_RIGHT)
 			player.moveRight();
@@ -81,18 +89,57 @@ public class MainClass extends JPanel implements ActionListener, KeyListener {
 					&& player
 							.checkCollisionDown(staticobjects, reactiveobjects) == true)
 				player.startJump();
-		if (keycode == KeyEvent.VK_SPACE)
-			if (player.directionRight == true)
-				missiles.add(new Weapon(player, staticobjects, reactiveobjects,
-						true, 1000, Math.PI * 0.4));
-			else
-				missiles.add(new Weapon(player, staticobjects, reactiveobjects,
-						false, 1000, Math.PI * 0.4));
 
+	}
+
+	public void fire(double velocity) {
+		
+		double mx = mouseXY[0];
+		double my = mouseXY[1] * Math.PI;
+		double angleR = Math.atan(my/mx);
+		double angleL = Math.atan(my/-mx);
+		System.out.println(mx);
+		System.out.println(my);
+
+		if (player.directionRight == true)
+			missiles.add(new Weapon(player, staticobjects, reactiveobjects,
+					true, clickVelocity, angleR));
+		else
+			missiles.add(new Weapon(player, staticobjects, reactiveobjects,
+					false, clickVelocity, angleL));
 	}
 
 	public void keyReleased(KeyEvent e) { // fires automatically when a key is
 											// released
+
+	}
+
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	public void mousePressed(MouseEvent e) {
+		Timer.setLogTimers(true);
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		int mousecode = e.getButton();
+		mouseXY[0]= e.getX() - player.getX();//gets x of mouse
+		mouseXY[1]= player.getY()-e.getY();//gets y of mouse
+
+		if (mousecode == MouseEvent.BUTTON1) {
+			fire(clickVelocity);
+			Timer.setLogTimers(false);
+			clickVelocity = 0; // resets click velocity
+		}
+
+	}
+
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	public void mouseExited(MouseEvent e) {
 
 	}
 
@@ -124,6 +171,12 @@ public class MainClass extends JPanel implements ActionListener, KeyListener {
 		invisibleObjectCleaner(staticobjects, reactiveobjects, missiles);
 		updateGameVariables();
 		repaint();
+
+		if (Timer.getLogTimers() == true) {
+			clickVelocity += 20; // adds increments to the velocity every event
+									// when log timer is active
+		}
+
 	}
 
 	public void paintComponent(Graphics g) {
