@@ -96,11 +96,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		
 		double mx = mouseXY[0];
 		double my = mouseXY[1] * Math.PI;
-		double angleR = Math.atan(my/mx);
-		double angleL = Math.atan(my/-mx);
-		System.out.println(mx);
-		System.out.println(my);
-
+		double angleR = Math.atan(my/mx); //calcs angle
+		double angleL = Math.atan(my/-mx); //calcs -angle
+		
 		if (player.directionRight == true)
 			missiles.add(new Weapon(player, staticobjects, reactiveobjects,
 					true, clickVelocity, angleR));
@@ -124,12 +122,12 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 
 	public void mouseReleased(MouseEvent e) {
 		int mousecode = e.getButton();
-		mouseXY[0]= e.getX() - player.getX();//gets x of mouse
-		mouseXY[1]= player.getY()-e.getY();//gets y of mouse
+		mouseXY[0]= e.getX() - player.getX();//gets x of mouse and takes away player x
+		mouseXY[1]= player.getY()-e.getY();//gets -y of mouse and adds player y
 
 		if (mousecode == MouseEvent.BUTTON1) {
-			fire(clickVelocity);
-			Timer.setLogTimers(false);
+			fire(clickVelocity); //fires weapon
+			Timer.setLogTimers(false); //ends the log
 			clickVelocity = 0; // resets click velocity
 		}
 
