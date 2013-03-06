@@ -62,6 +62,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		timer = new Timer(20, this);
 		timer.addActionListener(this);
 		timer.start();
+		
+		SoundEffect.init(); //loads the sound files so that there is no delay where playing.
 	}
 
 	public void updateGameVariables() {

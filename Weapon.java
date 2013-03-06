@@ -1,6 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import java.util.Random;
 
 public class Weapon implements ActionListener {
 
@@ -100,13 +103,15 @@ public class Weapon implements ActionListener {
 
 	}
 
-	public void destroy() { //applies the explosion images and loops through them before ending the timer 
+	public void destroy() { // applies the explosion images and loops through
+							// them before ending the timer
 		if (expIndex == 0) {
 			x = x - 75;
 			y = y - 48;
 		}
 
-		if (expIndex > 71) { //this goes through 18 frames with 4 events of each
+		if (expIndex > 71) { // this goes through 18 frames with 4 events of
+								// each
 			timer.stop();
 			visible = false;
 		} else {
@@ -114,8 +119,27 @@ public class Weapon implements ActionListener {
 		}
 	}
 
+	public void expolsionSound() {
+
+	}
+
 	public void explosion() {
-		int i = expIndex / 4; //new images every 4 events
+		if (expIndex == 0) { //plays once a random explosion
+			Random rand = new Random();
+			int r = rand.nextInt(2);
+			if (r == 0) {
+				SoundEffect.EXPLODE1.play(); // invokes the sound effect only
+												// once
+			} else if (r == 1) {
+				SoundEffect.EXPLODE2.play(); // invokes the sound effect only
+												// once
+			} else if (r == 2) {
+				SoundEffect.EXPLODE3.play(); // invokes the sound effect only
+												// once
+			}
+		}
+
+		int i = expIndex / 4; // new images every 4 events
 
 		ImageIcon tempImageIcon = new ImageIcon(this.getClass().getResource(
 				"explosion" + i + ".png"));
@@ -150,6 +174,7 @@ public class Weapon implements ActionListener {
 																	// -980m/s2
 																	// to
 																	// -200m/s2
+
 			xyPos[i][1] = (int) Math.round(s) - xyPos[i - 1][1];
 			xyPos[i][0] = (int) Math.round(horrSpeed);
 		}
