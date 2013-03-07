@@ -267,6 +267,8 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		updateRectangle();
+		
+		
 		if(injump==false){
 			gravityIncrment++;
 	        applyGravity();

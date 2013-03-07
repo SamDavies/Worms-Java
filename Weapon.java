@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -49,7 +50,7 @@ public class Weapon implements ActionListener {
 			x = p.x + p.playerImage.getWidth(null);
 			y = p.y;
 		} else {
-			x = p.x - p.playerImage.getWidth(null);
+			x = p.x;
 			y = p.y;
 		}
 
@@ -67,7 +68,8 @@ public class Weapon implements ActionListener {
 		for (int i = 0; i < 8; i++) {
 			ImageIcon tempImageIcon = new ImageIcon(this.getClass()
 					.getResource("grenade" + i + ".png"));
-			annimationImages[i] = tempImageIcon.getImage();
+			annimationImages[i] = tempImageIcon.getImage();		
+			
 		}
 
 		currentImage = annimationImages[0];
@@ -96,7 +98,7 @@ public class Weapon implements ActionListener {
 			x += xyPos[index][0];
 			y -= xyPos[index][1];
 		}
-		if (launchDirectionRight == false) {
+		if (launchDirectionRight == false) {			
 			x -= xyPos[index][0];
 			y -= xyPos[index][1];
 		}
@@ -163,7 +165,7 @@ public class Weapon implements ActionListener {
 											// intervals ([i][0] = x [i][0] = y
 
 		xyPos[0][1] = 0;
-		xyPos[0][0] = (int) Math.round(horrSpeed);
+		xyPos[0][0] = 0;
 
 		for (int i = 1; i < 1000; i++) {
 
@@ -201,7 +203,7 @@ public class Weapon implements ActionListener {
 				if (trajectoryIndex < trajectoryIncrements.length) {
 					move();
 					updateRectangle();
-					currentImage = annimationImages[trajectoryIndex % 7];
+					currentImage = annimationImages[trajectoryIndex % 3];
 					trajectoryIndex++;
 				} else {
 					visible = false;

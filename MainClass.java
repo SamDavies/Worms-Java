@@ -79,11 +79,11 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 											// pressed
 		int keycode = e.getKeyCode();
 		if (keycode == KeyEvent.VK_RIGHT) {
-			player.moveRight(5);
+			player.moveRight(3);
 		}
 
 		if (keycode == KeyEvent.VK_LEFT)
-			player.moveLeft(5);
+			player.moveLeft(3);
 
 		if (keycode == KeyEvent.VK_UP)
 			if (player.injump == false
