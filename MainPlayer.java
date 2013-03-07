@@ -20,11 +20,13 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	final int jumpSpeedBound=10,gravitySpeedBound=7;   //this are the maximum speeds for jump and gravity
 	Rectangle playerRectangleDown,playerRectangleLeft,playerRectangleRight,playerRectangleJump;
 	Line2D.Double lineBottom, lineTop; //this is a Line2D object used to check for collision with the bottom of the screen
-	boolean injump=false,directionRight=false; //true if the object faces right and false if it faces left
+	boolean injump=false,directionRight=true; //true if the object faces right and false if it faces left
 	ArrayList<StaticObjects> staticobjects;      //just pointers to the two arraylists that are created 
 	ArrayList<ReactiveObjects> reactiveobjects;  // in class MainClass
 	Timer timer;
-	int gravityIncrment = 0;
+	int gravityIncrment = 0;	
+	int jumpQuantity;
+	boolean canDoubleJump = false;
 	
 	public MainPlayer(int xvalue, int yvalue,ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r){
 		x=xvalue;
@@ -74,8 +76,7 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	public void setJumpSpeed(int x){this.jumpSpeed=x;}
 	public void setGravitySpeed(int x){this.gravitySpeed=x;}
 	public void setCurrentImageIndex(int x){this.currentImageIndex=x;}
-	public void setDirectionRight(boolean x){this.directionRight=x;}
-	
+	public void setDirectionRight(boolean x){this.directionRight=x;}	 		
 	//getters and setters
 	
 	public boolean checkCollisionRight(ArrayList<StaticObjects> s, ArrayList<ReactiveObjects> r){
@@ -205,26 +206,37 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 		}
 	
 	
-	public void startJump(){
+	public void startJump(int a){
 	    this.setInjump(true);					//this starts a jump of the player
-        this.setJumpSpeed(jumpSpeedBound);
+        if (a==0){
+        	this.setJumpSpeed(jumpSpeedBound);
+        	jumpQuantity = 1;
+        	canDoubleJump = true;
+        }else if(a==1 && canDoubleJump == true){
+        	jumpQuantity = -2;	
+        	jumpSpeed += jumpSpeedBound;  
+        	canDoubleJump = false;
+        }
 	}
 	
 	  public void jump(){
+		  if(jumpQuantity==1 | jumpQuantity==-2){
 		  if(jumpSpeed!=0)
 			if(checkCollisionJump(staticobjects,reactiveobjects)==false)		//this is actually the function that implements the logic behind
 	    		{  																//the jump
 					this.addY(-jumpSpeed);
 					if(directionRight == true){
-						moveRight(1);
+						moveRight(jumpQuantity);
 					}else{
-						moveLeft(1);
+						moveLeft(jumpQuantity);
 					}
 					this.setJumpSpeed(jumpSpeed-1);
 					this.updateRectangle();					
 	    		}else this.setJumpSpeed(0);
-		  else this.setInjump(false);
+		  
+		  else this.setInjump(false);}
 	}
+	 
 	
 	public void applyGravity(){
 		if(checkCollisionDown(staticobjects,reactiveobjects)==false)			//this applies gravity to the player
@@ -257,7 +269,8 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 		updateRectangle();
 		if(injump==false){
 			gravityIncrment++;
-	        applyGravity();	
+	        applyGravity();
+	        jumpQuantity = 0;
 	}
 		else   
 			jump();

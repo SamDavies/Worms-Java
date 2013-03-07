@@ -89,11 +89,15 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			if (player.injump == false
 					&& player
 							.checkCollisionDown(staticobjects, reactiveobjects) == true)
-				player.startJump();
+				player.startJump(0);
+			else if (player.injump == true && player.jumpSpeed>0 && player.jumpSpeed<player.jumpSpeedBound-5){
+				player.startJump(1);				
+			}
 
 	}
 
 	public void keyReleased(KeyEvent e) { // fires automatically when a key is
+		
 	}
 
 	public void fire(double velocity) {
