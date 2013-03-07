@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
-import javax.sound.sampled.Line;
+
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
@@ -17,13 +17,14 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	int currentImageIndex; //the index of the current image in annimationImages
 	int x,y;          //x and y coordinates for drawing the image on the screen
 	int jumpSpeed,gravitySpeed; //the current speeds for jump and gravity
-	final int jumpSpeedBound=20,gravitySpeedBound=7;   //this are the maximum speeds for jump and gravity
+	final int jumpSpeedBound=10,gravitySpeedBound=7;   //this are the maximum speeds for jump and gravity
 	Rectangle playerRectangleDown,playerRectangleLeft,playerRectangleRight,playerRectangleJump;
 	Line2D.Double lineBottom, lineTop; //this is a Line2D object used to check for collision with the bottom of the screen
 	boolean injump=false,directionRight=false; //true if the object faces right and false if it faces left
 	ArrayList<StaticObjects> staticobjects;      //just pointers to the two arraylists that are created 
 	ArrayList<ReactiveObjects> reactiveobjects;  // in class MainClass
 	Timer timer;
+	int gravityIncrment = 0;
 	
 	public MainPlayer(int xvalue, int yvalue,ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r){
 		x=xvalue;
@@ -44,6 +45,7 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	    timer = new Timer(50,this);
 	    timer.addActionListener(this);
 	    timer.start();
+	    
 	}
 	
 	public void loadAnnimationImages(){
@@ -171,7 +173,7 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	
 	
 	
-	public void moveRight(){
+	public void moveRight(int amount){
 		this.setDirectionRight(true);
 	    if(!playerImage.equals(annimationImages[0]))
 			   playerImage=annimationImages[0];
@@ -180,13 +182,13 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	    if(this.x<750)								 //this functions moves the player to the right
 		if(checkCollisionRight(staticobjects,reactiveobjects)==false)
 		{
-		 this.addX(5);
-		 this.updateRectangle();
+		 this.addX(amount);
+		 this.updateRectangle();		 
 		}
 		
 	}
 
-	public void moveLeft(){
+	public void moveLeft(int amount){
 	    directionRight=false;
 		if(!playerImage.equals(annimationImages[2]))
 			   playerImage=annimationImages[2];
@@ -195,7 +197,7 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 		if(this.x>0)
 		if(checkCollisionLeft(staticobjects,reactiveobjects)==false)
 			{
-			   this.addX(-5);
+			   this.addX(-amount);
 			   this.updateRectangle();
 			    
 			}
@@ -212,9 +214,14 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 		  if(jumpSpeed!=0)
 			if(checkCollisionJump(staticobjects,reactiveobjects)==false)		//this is actually the function that implements the logic behind
 	    		{  																//the jump
-					this.addY(-jumpSpeed);	
+					this.addY(-jumpSpeed);
+					if(directionRight == true){
+						moveRight(1);
+					}else{
+						moveLeft(1);
+					}
 					this.setJumpSpeed(jumpSpeed-1);
-					this.updateRectangle();
+					this.updateRectangle();					
 	    		}else this.setJumpSpeed(0);
 		  else this.setInjump(false);
 	}
@@ -222,6 +229,7 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	public void applyGravity(){
 		if(checkCollisionDown(staticobjects,reactiveobjects)==false)			//this applies gravity to the player
 		{
+			gravityIncrment = 0;
 			this.addY(gravitySpeed);
 			 if(gravitySpeed<gravitySpeedBound)
 			this.setGravitySpeed(gravitySpeed+1);
@@ -247,10 +255,13 @@ public class MainPlayer implements ActionListener{     //the class for the user 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		updateRectangle();
-		if(injump==false)
-	        applyGravity();
+		if(injump==false){
+			gravityIncrment++;
+	        applyGravity();	
+	}
 		else   
 			jump();
+			
 	}
 	
 }
