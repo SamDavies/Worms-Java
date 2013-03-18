@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -16,16 +15,17 @@ import java.util.Random;
 
 public class Weapon implements ActionListener {
 
-	Image[] annimationImages = new Image[8];
+	ArrayList<Image> annimationImages = new ArrayList<Image>();
+	ArrayList<Image> destructionImages = new ArrayList<Image>();
 	Image currentImage;
-	boolean launchDirectionRight, visible; // true if it is launched to the
+	boolean launchDirectionRight, visible,isDestroyed=false, hasHitEnemyDirectly=false; // true if it is launched to the
 											// right and false to the left
 	int x, y; // x and y coordinate for drawing the image on the screen
 	private int imageWidth, imageHeight; // width and height of the image of the
 											// object
 	private Rectangle rectangle;
 	private Timer timer;
-	private MainPlayer player;
+	private MainPlayer player,enemy;
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
 											// arraylists that are created
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
@@ -35,7 +35,7 @@ public class Weapon implements ActionListener {
 
 	// that we are currently at
 
-	public Weapon(MainPlayer p, ArrayList<StaticObjects> s,
+	public Weapon(MainPlayer p,MainPlayer enemy, ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r, boolean l, double velocity,
 			double angle) {
 		trajectoryIncrements = calculateTrajectory(velocity, angle);
@@ -44,13 +44,15 @@ public class Weapon implements ActionListener {
 		reactiveobjects = r;
 
 		loadAnnimationImages();
-
+        loadDestructionImages();
 		player = p;
+		player.setGrenadesAvailable(player.getGrenadesAvailable()-1);
+		this.enemy=enemy;
 		if (l == true) {
 			x = p.x + p.playerImage.getWidth(null);
 			y = p.y;
 		} else {
-			x = p.x;
+			x = p.x - p.playerImage.getWidth(null);
 			y = p.y;
 		}
 
@@ -59,7 +61,7 @@ public class Weapon implements ActionListener {
 				currentImage.getHeight(null));
 		imageHeight = currentImage.getHeight(null);
 		imageWidth = currentImage.getWidth(null);
-		timer = new Timer(5, this);
+		timer = new Timer(20, this);
 		timer.start();
 	}
 
@@ -67,16 +69,40 @@ public class Weapon implements ActionListener {
 
 		for (int i = 0; i < 8; i++) {
 			ImageIcon tempImageIcon = new ImageIcon(this.getClass()
-					.getResource("grenade" + i + ".png"));
-			annimationImages[i] = tempImageIcon.getImage();		
-			
+					.getResource("images/grenade/grenade" + i + ".png"));
+			annimationImages.add(tempImageIcon.getImage());
 		}
 
-		currentImage = annimationImages[0];
+		currentImage = annimationImages.get(0);
 
 	}
+	
+	public void loadDestructionImages(){
+		for (int i = 0; i < 18; i++) {
+			ImageIcon tempImageIcon = new ImageIcon(this.getClass()
+					.getResource("images/grenade/explosion" + i + ".png"));
+			destructionImages.add(tempImageIcon.getImage());
+		}
 
+		
+	}
+
+	public boolean checkCollisionEnemy(){
+		if(enemy!=null)
+	 if(rectangle.intersects(enemy.CollisionRectangle))
+	 {
+		if(this.isDestroyed==false){
+			enemy.getsHit(20);
+			this.hasHitEnemyDirectly=true;
+		}	else if(this.hasHitEnemyDirectly==false)
+			enemy.getsHit(1);
+		 return true;
+	 }		
+	    return false;
+	}
+	
 	public boolean checkCollisionStatic() {
+		if(y>575) return true;
 		for (int i = 0; i < staticobjects.size(); i++)
 			if (rectangle.intersects(staticobjects.get(i).rectangle))
 				return true;
@@ -85,8 +111,10 @@ public class Weapon implements ActionListener {
 
 	public boolean checkCollisionReactive() {
 		for (int i = 0; i < reactiveobjects.size(); i++)
-			if (rectangle.intersects(reactiveobjects.get(i).rectangle))
+			if (rectangle.intersects(reactiveobjects.get(i).rectangle)){
+			    reactiveobjects.get(i).destroy(player);
 				return true;
+			}
 		return false;
 	}
 
@@ -98,7 +126,7 @@ public class Weapon implements ActionListener {
 			x += xyPos[index][0];
 			y -= xyPos[index][1];
 		}
-		if (launchDirectionRight == false) {			
+		if (launchDirectionRight == false) {
 			x -= xyPos[index][0];
 			y -= xyPos[index][1];
 		}
@@ -106,19 +134,12 @@ public class Weapon implements ActionListener {
 	}
 
 	public void destroy() { // applies the explosion images and loops through
-							// them before ending the timer
-		if (expIndex == 0) {
-			x = x - 75;
-			y = y - 48;
-		}
-
-		if (expIndex > 71) { // this goes through 18 frames with 4 events of
-								// each
-			timer.stop();
-			visible = false;
-		} else {
-			explosion();
-		}
+        isDestroyed=true;
+        timer.stop();
+        this.x-=50;
+        this.y-=50;
+        timer.setDelay(100);
+        timer.start();
 	}
 
 	public void expolsionSound() {
@@ -126,34 +147,27 @@ public class Weapon implements ActionListener {
 	}
 
 	public void explosion() {
-		if (expIndex == 0) { //plays once a random explosion
-			Random rand = new Random();
-			int r = rand.nextInt(2);
-			if (r == 0) {
-				SoundEffect.EXPLODE1.play(); // invokes the sound effect only
+	//	if (expIndex == 0) { //plays once a random explosion
+	//		Random rand = new Random();
+	//		int r = rand.nextInt(2);
+	//		if (r == 0) {
+	//			SoundEffect.EXPLODE1.play(); // invokes the sound effect only
+	//											// once
+	//		} else if (r == 1) {
+	//			SoundEffect.EXPLODE2.play(); // invokes the sound effect only
+	//											// once
+	//		} else if (r == 2) {
+	//			SoundEffect.EXPLODE3.play(); // invokes the sound effect only
 												// once
-			} else if (r == 1) {
-				SoundEffect.EXPLODE2.play(); // invokes the sound effect only
-												// once
-			} else if (r == 2) {
-				SoundEffect.EXPLODE3.play(); // invokes the sound effect only
-												// once
-			}
-		}
+		//	}
+	//	}
 
-		int i = expIndex / 4; // new images every 4 events
-
-		ImageIcon tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"explosion" + i + ".png"));
-		currentImage = tempImageIcon.getImage();
-
+		currentImage = destructionImages.get(expIndex);
 		expIndex++;
-
+		updateRectangle();
+		this.checkCollisionEnemy();
 	}
 
-	public void destroy(ReactiveObjects r) {
-
-	}
 
 	public int[][] calculateTrajectory(double speed, double angle) {
 		double vertSpeed = speed * Math.sin(angle);
@@ -182,13 +196,13 @@ public class Weapon implements ActionListener {
 		}
 
 		return xyPos;
-
 	}
 
 	public void updateSystemVariables(ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r) {
 		staticobjects = s;
 		reactiveobjects = r;
+		this.enemy=enemy;
 	}
 
 	public void updateRectangle() {
@@ -198,25 +212,29 @@ public class Weapon implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(isDestroyed==false)
 		if (checkCollisionStatic() == false) {
 			if (checkCollisionReactive() == false) {
+				if (checkCollisionEnemy() == false){
 				if (trajectoryIndex < trajectoryIncrements.length) {
 					move();
 					updateRectangle();
-					currentImage = annimationImages[trajectoryIndex % 3];
+					currentImage = annimationImages.get(trajectoryIndex % 7);
 					trajectoryIndex++;
-				} else {
+				} else destroy();
+				}else destroy();
+			}else destroy();
+		}else destroy();
+		if(isDestroyed==true)
+		{
+		      if(expIndex<annimationImages.size())
+		    	  explosion();
+		      else {
+		    	   timer.stop();
 					visible = false;
-				}
-			} else {
-
-				destroy();
-
-			}
-		} else {
-			destroy();
-
-		}
+		      	   }
+		    	  
+		   	}	   
 
 	}
 

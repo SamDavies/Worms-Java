@@ -11,12 +11,26 @@ public class StaticObjects {     //the class for the static objects on the scree
 	int imageWidth,imageHeight; //width and height of the image of the object
 	Rectangle rectangle;
 	boolean visible;
-	public StaticObjects(int xvalue, int yvalue){		//constructor
+	public StaticObjects(int xvalue, int yvalue, int type){		//constructor
 		this.x=xvalue;
 		this.y=yvalue;
 		visible=true;
-		ImageIcon tempImageIcon=new ImageIcon(this.getClass().getResource("brick.jpg"));
-		this.objectImage=tempImageIcon.getImage();
+		ImageIcon tempImageIcon;
+		switch(type){
+		case 0:
+			tempImageIcon=new ImageIcon(this.getClass().getResource("images/static/brick.jpg"));
+			this.objectImage=tempImageIcon.getImage();
+			break;
+		case 1:
+			tempImageIcon=new ImageIcon(this.getClass().getResource("images/static/stone.png"));
+			this.objectImage=tempImageIcon.getImage();
+			break;
+		case 2:
+			tempImageIcon=new ImageIcon(this.getClass().getResource("images/static/grass.png")); 
+			this.objectImage=tempImageIcon.getImage();
+			break;
+		}
+		
 		this.rectangle=new Rectangle(xvalue,yvalue,this.objectImage.getWidth(null),this.objectImage.getHeight(null));
 		this.imageHeight=this.objectImage.getHeight(null);
 		this.imageWidth=this.objectImage.getWidth(null);
