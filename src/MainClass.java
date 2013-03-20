@@ -44,8 +44,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	public MainClass(boolean isSinglePlayer, Maps map) {
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
-		tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"background.jpg"));
+		tempImageIcon = new ImageIcon(
+				"background.jpg");
 		backgroundImage = tempImageIcon.getImage();
 		tempImageIcon = new ImageIcon("board.png");
 		boardImage = tempImageIcon.getImage();

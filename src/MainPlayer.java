@@ -60,8 +60,8 @@ public class MainPlayer implements ActionListener { // the class for the user
 				playerImage.getHeight(null) + 2);
 		CollisionRectangle = new Rectangle(x, y, playerImage.getWidth(null),
 				playerImage.getHeight(null));
-		ImageIcon tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"background.jpg"));
+		ImageIcon tempImageIcon = new ImageIcon(
+				"background.jpg");
 		staticobjects = s;
 		reactiveobjects = r;
 		lineBottom = new Line2D.Double(0.0, 600.0, 800.0, 600.0);
@@ -75,20 +75,20 @@ public class MainPlayer implements ActionListener { // the class for the user
 		ImageIcon tempImageIcon;
 		annimationImages = new Image[4]; // this function allocates space in the
 											// memory for the images of
-		tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"worms-right.png")); // the player and retrieves the images from
+		tempImageIcon = new ImageIcon(
+				"worms-right.png"); // the player and retrieves the images from
 										// the file system
 		annimationImages[0] = tempImageIcon.getImage(); // images with index 0
 														// and 1 are for moving
 														// right and 2 and 3 are
-		tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"worms-right1.png")); // for moving left
+		tempImageIcon = new ImageIcon(
+				"worms-right1.png"); // for moving left
 		annimationImages[1] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"worms-left.png"));
+		tempImageIcon = new ImageIcon(
+				"worms-left.png");
 		annimationImages[2] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon(this.getClass().getResource(
-				"worms-left1.png"));
+		tempImageIcon = new ImageIcon(
+				"worms-left1.png");
 		annimationImages[3] = tempImageIcon.getImage();
 
 	}

@@ -55,78 +55,61 @@ public class Missile implements ActionListener{
 
 	
 	public void loadAnnimationImagesLeft(){
-		ImageIcon tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile100.png"));
+		ImageIcon tempImageIcon=new ImageIcon("images/weapons/missile100.png");
 		this.currentImage=tempImageIcon.getImage();
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile120.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile120.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile145.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile145.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile165.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile165.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile180.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile180.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile195.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile195.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile210.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile210.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile225.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile225.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile260.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile260.png");
 		this.annimationImages.add(tempImageIcon.getImage());
 	}
 	
 	public void loadAnnimationImagesRight(){
-		ImageIcon tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile80.png"));
+		ImageIcon tempImageIcon=new ImageIcon("images/weapons/missile80.png");
 		this.currentImage=tempImageIcon.getImage();
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile60.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile60.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile45.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile45.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile30.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile30.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile15.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile15.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile0.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile0.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile-15.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile-15.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile-30.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile-30.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile-45.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile-45.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile-60.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile-60.png");
 		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/weapons/missile-80.png"));
+		tempImageIcon=new ImageIcon("images/weapons/missile-80.png");
 		this.annimationImages.add(tempImageIcon.getImage());
 	}
 	
 	public void loadDestructionImages(){
-		ImageIcon tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-1.png"));
+		ImageIcon tempImageIcon=new ImageIcon("images/explosion/explosion-1.png");
 		this.currentImage=tempImageIcon.getImage();
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-1.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-2.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-3.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-4.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-5.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-6.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-7.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-8.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-9.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-10.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-11.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
-		tempImageIcon=new ImageIcon(this.getClass().getResource("images/explosion/explosion-12.png"));
-		this.annimationImages.add(tempImageIcon.getImage());
+		
+		for(int i = 1; i<13; i++){
+			String exp = "images/explosion/explosion-" + i + ".png";
+			tempImageIcon=new ImageIcon(exp);
+			this.annimationImages.add(tempImageIcon.getImage());
+		}
+		
 	}
 	
 	public boolean checkCollisionStatic(){

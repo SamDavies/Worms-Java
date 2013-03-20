@@ -25,17 +25,17 @@ public class ReactiveObjects implements ActionListener {
 		switch(type){
 		case 0:
 			this.type="heart";
-			tempImageIcon=new ImageIcon(this.getClass().getResource("images/reactive/heart.png"));
+			tempImageIcon=new ImageIcon("images/reactive/heart.png");
 			this.currentImage=tempImageIcon.getImage();
 			break;
 		case 1:
 			this.type="diamond";
-			tempImageIcon=new ImageIcon(this.getClass().getResource("images/reactive/diamond.png")); 
+			tempImageIcon=new ImageIcon("images/reactive/diamond.png"); 
 			this.currentImage=tempImageIcon.getImage();
 			break;
 		case 2:
 			this.type="gold";
-			tempImageIcon=new ImageIcon(this.getClass().getResource("images/reactive/gold.png")); 
+			tempImageIcon=new ImageIcon("images/reactive/gold.png"); 
 			this.currentImage=tempImageIcon.getImage();
 			break;
 		

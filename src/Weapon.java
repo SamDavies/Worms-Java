@@ -68,8 +68,7 @@ public class Weapon implements ActionListener {
 	public void loadAnnimationImages() {
 
 		for (int i = 0; i < 8; i++) {
-			ImageIcon tempImageIcon = new ImageIcon(this.getClass()
-					.getResource("images/grenade/grenade" + i + ".png"));
+			ImageIcon tempImageIcon = new ImageIcon("images/grenade/grenade" + i + ".png");
 			annimationImages.add(tempImageIcon.getImage());
 		}
 
@@ -79,8 +78,7 @@ public class Weapon implements ActionListener {
 	
 	public void loadDestructionImages(){
 		for (int i = 0; i < 18; i++) {
-			ImageIcon tempImageIcon = new ImageIcon(this.getClass()
-					.getResource("images/grenade/explosion" + i + ".png"));
+			ImageIcon tempImageIcon = new ImageIcon("images/grenade/explosion" + i + ".png");
 			destructionImages.add(tempImageIcon.getImage());
 		}
 
@@ -147,20 +145,20 @@ public class Weapon implements ActionListener {
 	}
 
 	public void explosion() {
-	//	if (expIndex == 0) { //plays once a random explosion
-	//		Random rand = new Random();
-	//		int r = rand.nextInt(2);
-	//		if (r == 0) {
-	//			SoundEffect.EXPLODE1.play(); // invokes the sound effect only
-	//											// once
-	//		} else if (r == 1) {
-	//			SoundEffect.EXPLODE2.play(); // invokes the sound effect only
-	//											// once
-	//		} else if (r == 2) {
-	//			SoundEffect.EXPLODE3.play(); // invokes the sound effect only
+	if (expIndex == 0) { //plays once a random explosion
+			Random rand = new Random();
+			int r = rand.nextInt(2);
+			if (r == 0) {
+				//SoundEffect.EXPLODE1.play(); // invokes the sound effect only
 												// once
-		//	}
-	//	}
+			} else if (r == 1) {
+				//SoundEffect.EXPLODE2.play(); // invokes the sound effect only
+												// once
+			} else if (r == 2) {
+				//SoundEffect.EXPLODE3.play(); // invokes the sound effect only
+												// once
+			}
+		}
 
 		currentImage = destructionImages.get(expIndex);
 		expIndex++;
