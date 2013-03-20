@@ -36,7 +36,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	int player1Weapon = 1, player2Weapon = 1;
 	int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 3;
 	String board = "";
-	boolean fired = false;
+	boolean fired = false;	
+	
 
 	MainPlayer p = player1;
 	MainPlayer p2 = player2;
