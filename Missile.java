@@ -218,9 +218,7 @@ public class Missile implements ActionListener{
 		this.rectangle=new Rectangle(this.x,this.y,this.currentImage.getWidth(null),this.currentImage.getHeight(null));
 	}
 	
-	public static void main(String[] args) {     //we are going to move the missile here
 	
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -36,11 +36,11 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	int player1Weapon = 1, player2Weapon = 1;
 	int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 3;
 	String board = "";
+	boolean fired = false;
 
 	MainPlayer p = player1;
 	MainPlayer p2 = player2;
 
-	
 	public MainClass(boolean isSinglePlayer, Maps map) {
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
@@ -255,7 +255,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 								reactiveobjects, false));
 					this.weaponsUsedInTurn++;
 				}
-		} else if(player==1){
+		} else if (player == 1) {
 			if (this.weaponsUsedInTurn < this.MaxWeaponsPerTurn)
 				if (player2.directionRight == true) {
 					if (player2Weapon == 1
@@ -332,13 +332,11 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				grenades, bullets);
 		updateGameVariables();
 		repaint();
-		if (Timer.getLogTimers() == true
-				&& (this.player1Weapon == 0 || this.player2Weapon == 0)) {
+		if (fired && (this.player1Weapon == 0 || this.player2Weapon == 0)) {
 			clickVelocity += 20; // adds increments to the velocity every event
 									// when log timer is active
 		} else {
 			clickVelocity = 0;
-			Timer.setLogTimers(false);
 		}
 	}
 
@@ -458,7 +456,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (this.player2Weapon == 0 || this.player1Weapon == 0)
-			Timer.setLogTimers(true);
+			fired = true;
 
 	}
 
@@ -477,7 +475,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 
 					if (mousecode == MouseEvent.BUTTON1) {
 						fire(clickVelocity); // fires weapon
-						Timer.setLogTimers(false); // ends the log
+						fired = false;
+						; // ends the log
 						clickVelocity = 0; // resets click velocity
 						this.weaponsUsedInTurn++;
 					}
@@ -494,7 +493,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 
 					if (mousecode == MouseEvent.BUTTON1) {
 						fire(clickVelocity); // fires weapon
-						Timer.setLogTimers(false); // ends the log
+						fired = false; // ends the log
 						clickVelocity = 0; // resets click velocity
 						this.weaponsUsedInTurn++;
 					}
