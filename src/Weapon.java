@@ -149,13 +149,13 @@ public class Weapon implements ActionListener {
 			Random rand = new Random();
 			int r = rand.nextInt(2);
 			if (r == 0) {
-				//SoundEffect.EXPLODE1.play(); // invokes the sound effect only
+				SoundEffect.EXPLODE1.play(); // invokes the sound effect only
 												// once
 			} else if (r == 1) {
-				//SoundEffect.EXPLODE2.play(); // invokes the sound effect only
+				SoundEffect.EXPLODE2.play(); // invokes the sound effect only
 												// once
 			} else if (r == 2) {
-				//SoundEffect.EXPLODE3.play(); // invokes the sound effect only
+				SoundEffect.EXPLODE3.play(); // invokes the sound effect only
 												// once
 			}
 		}
