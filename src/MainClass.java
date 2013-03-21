@@ -46,7 +46,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
 		tempImageIcon = new ImageIcon(
-				"background.jpg");
+				"background.png");
 		backgroundImage = tempImageIcon.getImage();
 		tempImageIcon = new ImageIcon("board.png");
 		boardImage = tempImageIcon.getImage();

@@ -18,15 +18,15 @@ public class StaticObjects {     //the class for the static objects on the scree
 		ImageIcon tempImageIcon;
 		switch(type){
 		case 0:
-			tempImageIcon=new ImageIcon("images/static/brick.jpg");
+			tempImageIcon=new ImageIcon("images/static/cloud.png");
 			this.objectImage=tempImageIcon.getImage();
 			break;
 		case 1:
-			tempImageIcon=new ImageIcon("images/static/stone.png");
+			tempImageIcon=new ImageIcon("images/static/crate.png");
 			this.objectImage=tempImageIcon.getImage();
 			break;
 		case 2:
-			tempImageIcon=new ImageIcon("images/static/grass.png"); 
+			tempImageIcon=new ImageIcon("images/static/turf.png"); 
 			this.objectImage=tempImageIcon.getImage();
 			break;
 		}

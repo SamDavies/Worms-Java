@@ -37,7 +37,7 @@ public class Maps {
 		temp[0]=600;temp[1]=450;
 		this.objectPositionsXAtIndex.add(temp[0]);
 		this.objectPositionsYAtIndex.add(temp[1]);
-		this.objectTypeAtIndex.add(2);
+		this.objectTypeAtIndex.add(1);
 		temp[0]=0;temp[1]=570;
 		this.objectPositionsXAtIndex.add(temp[0]);
 		this.objectPositionsYAtIndex.add(temp[1]);
