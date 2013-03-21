@@ -36,13 +36,17 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	int player1Weapon = 1, player2Weapon = 1;
 	int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 3;
 	String board = "";
-	boolean fired = false;	
 	
+	boolean fired = false;	
+	private String player1Name;
+	private String player2Name;
 
 	MainPlayer p = player1;
 	MainPlayer p2 = player2;
 
-	public MainClass(boolean isSinglePlayer, Maps map) {
+	public MainClass(String player1Name, String player2Name, Maps map) {
+		this.player1Name = player1Name;
+		this.player2Name = player2Name;
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
 		tempImageIcon = new ImageIcon(
@@ -280,6 +284,16 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 					this.weaponsUsedInTurn++;
 				}
 		}
+	}
+	
+	public void stopTimers() {
+		this.timer.stop();
+		this.changeTurns.stop();
+	}
+
+	public void startTimers() {
+		this.timer.start();
+		this.changeTurns.start();
 	}
 
 	public void keyReleased(KeyEvent e) { // fires automatically when a key is
