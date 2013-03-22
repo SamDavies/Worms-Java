@@ -22,7 +22,11 @@ public class Maps {
 	public void loadMap1(){
 		int[] temp=new int[2];
 		//adding static objects
-		{temp[0]=100;temp[1]=350;
+		{
+		
+		
+			
+			temp[0]=100;temp[1]=350;
 		this.objectPositionsXAtIndex.add(temp[0]);
 		this.objectPositionsYAtIndex.add(temp[1]);
 		this.objectTypeAtIndex.add(0);
@@ -93,7 +97,16 @@ public class Maps {
 		//adding static objects
 		
 		//adding reactive objects
-		{temp[0]=200;temp[1]=470;
+		{
+			for(int j=570; j>400; j=j-11){	
+				for(int i=400; i<710; i=i+11){
+					temp[0]=i;temp[1]=j;
+					this.objectPositionsXAtIndex.add(temp[0]);
+					this.objectPositionsYAtIndex.add(temp[1]);
+					this.objectTypeAtIndex.add(6);
+				}
+			}	
+			temp[0]=200;temp[1]=470;
 		this.objectPositionsXAtIndex.add(temp[0]);
 		this.objectPositionsYAtIndex.add(temp[1]);
 		this.objectTypeAtIndex.add(3);

@@ -38,6 +38,11 @@ public class ReactiveObjects implements ActionListener {
 			tempImageIcon=new ImageIcon("images/reactive/gold.png"); 
 			this.currentImage=tempImageIcon.getImage();
 			break;
+		case 3:
+			this.type="brick";
+			tempImageIcon=new ImageIcon("images/reactive/brick.png"); 
+			this.currentImage=tempImageIcon.getImage();
+			break;
 		
 		}
 		

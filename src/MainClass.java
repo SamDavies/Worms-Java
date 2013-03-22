@@ -34,7 +34,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	boolean player1Turn, player2Turn;
 	int[] mouseXY = new int[2]; // stores coordinates of mouse
 	int player1Weapon = 1, player2Weapon = 1;
-	int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 3;
+	int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 800;
 	String board = "";
 	
 	boolean fired = false;	
@@ -83,6 +83,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				break;
 			case 5:
 				reactiveobjects.add(new ReactiveObjects(posX, posY, 0));
+				break;
+			case 6:
+				reactiveobjects.add(new ReactiveObjects(posX, posY, 3));
 				break;
 			}
 		}
