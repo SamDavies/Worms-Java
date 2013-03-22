@@ -205,7 +205,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				// new
 				Rectangle temp = new Rectangle(x, y,
 						playerImage.getWidth(null) + 5,
-						playerImage.getHeight(null) - 8);
+						playerImage.getHeight(null) - 4);
 				boolean sum = true;
 				for (int j = 0; j < r.size(); j++) {
 
@@ -216,7 +216,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				}
 				if (sum) {
 					this.addX(1);
-					this.addY(-8);
+					this.addY(-2);
 					this.updateRectangle();
 				}
 				// new
@@ -243,7 +243,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				// new
 				Rectangle temp = new Rectangle(x - 5, y,
 						playerImage.getWidth(null) + 5,
-						playerImage.getHeight(null)-8);
+						playerImage.getHeight(null)-4);
 				boolean sum = true;
 				for (int j = 0; j < r.size(); j++) {
 
@@ -254,7 +254,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				}
 				if (sum) {
 					this.addX(-1);
-					this.addY(-8);
+					this.addY(-2);
 					this.updateRectangle();
 				}
 				// new
@@ -307,22 +307,23 @@ public class MainPlayer implements ActionListener { // the class for the user
 		if (this.playerRectangleDown.intersectsLine(this.lineBottom))
 			return true;
 		// same as for checkCollisionDown
-		if (enemy != null)
+		if (enemy != null){
 			if (playerRectangleDown.intersects(enemy.CollisionRectangle)) {
-				this.setY(enemy.y - playerImage.getHeight(null) - 1);
+				
 				return true;
 			}
+		}
 
 		for (int i = 0; i < s.size(); i++) {
 			if (playerRectangleDown.intersects(s.get(i).rectangle)) {
-				this.setY(s.get(i).y - playerImage.getHeight(null) - 1);
+				
 				return true;
 			}
 		}
 
 		for (int i = 0; i < r.size(); i++) {
 			if (playerRectangleDown.intersects(r.get(i).rectangle)) {
-				this.setY(r.get(i).y - playerImage.getHeight(null) - 1);
+				
 				return true;
 			}
 		}
