@@ -46,7 +46,7 @@ public class ReactiveObjects implements ActionListener {
 		
 		}
 		
-		this.rectangle=new Rectangle(xvalue+4,yvalue,this.currentImage.getWidth(null)-8,this.currentImage.getHeight(null));
+		this.rectangle=new Rectangle(xvalue,yvalue,this.currentImage.getWidth(null),this.currentImage.getHeight(null));
 		this.imageHeight=this.currentImage.getHeight(null);
 		this.imageWidth=this.currentImage.getWidth(null);
 	}

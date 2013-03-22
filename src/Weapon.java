@@ -107,17 +107,18 @@ public class Weapon implements ActionListener {
 		if (y > 575)
 			return true;
 		for (int i = 0; i < staticobjects.size(); i++)
-			if (rectangle.intersects(staticobjects.get(i).rectangle))
+			if (collisionCircle.intersects(reactiveobjects.get(i).rectangle)) {
+				reactiveobjects.get(i).destroy(player);
 				return true;
+			}
 		return false;
 	}
 
 	public boolean checkCollisionReactive() {
-		for (int i = 0; i < reactiveobjects.size(); i++) {
-			
+		for (int i = 0; i < reactiveobjects.size(); i++) {	
 						
-			if (collisionCircle.intersects(reactiveobjects.get(i).rectangle)) {			
-
+			if (collisionCircle.intersects(reactiveobjects.get(i).rectangle)) {	
+				reactiveobjects.get(i).destroy(player);
 				return true;
 			}
 		}

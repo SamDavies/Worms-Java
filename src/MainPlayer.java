@@ -40,7 +40,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	int walk = 1;
 	int jumpQuantity;
 	boolean canDoubleJump = false;
-	private int grenadesAvailable = 2;
+	private int grenadesAvailable = 50;
 	private int missilesAvailable = 5;
 
 	public MainPlayer(int xvalue, int yvalue, ArrayList<StaticObjects> s,
@@ -60,8 +60,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				playerImage.getHeight(null) + 2);
 		CollisionRectangle = new Rectangle(x, y, playerImage.getWidth(null),
 				playerImage.getHeight(null));
-		ImageIcon tempImageIcon = new ImageIcon(
-				"background.jpg");
+		ImageIcon tempImageIcon = new ImageIcon("background.jpg");
 		staticobjects = s;
 		reactiveobjects = r;
 		lineBottom = new Line2D.Double(0.0, 600.0, 800.0, 600.0);
@@ -75,20 +74,18 @@ public class MainPlayer implements ActionListener { // the class for the user
 		ImageIcon tempImageIcon;
 		annimationImages = new Image[4]; // this function allocates space in the
 											// memory for the images of
-		tempImageIcon = new ImageIcon(
-				"worms-right.png"); // the player and retrieves the images from
-										// the file system
+		tempImageIcon = new ImageIcon("worms-right.png"); // the player and
+															// retrieves the
+															// images from
+															// the file system
 		annimationImages[0] = tempImageIcon.getImage(); // images with index 0
 														// and 1 are for moving
 														// right and 2 and 3 are
-		tempImageIcon = new ImageIcon(
-				"worms-right1.png"); // for moving left
+		tempImageIcon = new ImageIcon("worms-right1.png"); // for moving left
 		annimationImages[1] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon(
-				"worms-left.png");
+		tempImageIcon = new ImageIcon("worms-left.png");
 		annimationImages[2] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon(
-				"worms-left1.png");
+		tempImageIcon = new ImageIcon("worms-left1.png");
 		annimationImages[3] = tempImageIcon.getImage();
 
 	}
@@ -195,6 +192,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				return true;
 		for (int i = 0; i < s.size(); i++) {
 			if (playerRectangleRight.intersects(s.get(i).rectangle)) {
+
 				// this function checks for collision
 				return true; // to the right of the player
 			} // it uses playerRectangleRight rectangle
@@ -203,6 +201,25 @@ public class MainPlayer implements ActionListener { // the class for the user
 											// type of
 		{ // arraylist
 			if (playerRectangleRight.intersects(r.get(i).rectangle)) {
+
+				// new
+				Rectangle temp = new Rectangle(x, y,
+						playerImage.getWidth(null) + 5,
+						playerImage.getHeight(null) - 8);
+				boolean sum = true;
+				for (int j = 0; j < r.size(); j++) {
+
+					if (temp.intersects(r.get(j).rectangle)) {
+						sum = sum & false;
+						return true;
+					}
+				}
+				if (sum) {
+					this.addX(1);
+					this.addY(-8);
+					this.updateRectangle();
+				}
+				// new
 
 				return true;
 			}
@@ -223,7 +240,24 @@ public class MainPlayer implements ActionListener { // the class for the user
 		}
 		for (int i = 0; i < r.size(); i++) {
 			if (playerRectangleLeft.intersects(r.get(i).rectangle)) {
+				// new
+				Rectangle temp = new Rectangle(x - 5, y,
+						playerImage.getWidth(null) + 5,
+						playerImage.getHeight(null)-8);
+				boolean sum = true;
+				for (int j = 0; j < r.size(); j++) {
 
+					if (temp.intersects(r.get(j).rectangle)) {
+						sum = sum & false;
+						return true;
+					}
+				}
+				if (sum) {
+					this.addX(-1);
+					this.addY(-8);
+					this.updateRectangle();
+				}
+				// new
 				return true;
 			}
 		}
@@ -393,19 +427,9 @@ public class MainPlayer implements ActionListener { // the class for the user
 
 	public void updateRectangle() {
 		playerRectangleLeft = new Rectangle(x - 5, y,
-				playerImage.getWidth(null) + 5, playerImage.getHeight(null)); // this
-																				// function
-																				// updates
-																				// the
-																				// coordinates
+				playerImage.getWidth(null) + 5, playerImage.getHeight(null));
 		playerRectangleRight = new Rectangle(x, y,
-				playerImage.getWidth(null) + 5, playerImage.getHeight(null)); // of
-																				// the
-																				// rectangles
-																				// used
-																				// to
-																				// check
-																				// for
+				playerImage.getWidth(null) + 5, playerImage.getHeight(null));
 		playerRectangleDown = new Rectangle(x + 4, y,
 				playerImage.getWidth(null) - 8, playerImage.getHeight(null) + 5); // collision
 		playerRectangleJump = new Rectangle(this.x + 4, this.y - jumpSpeed,
