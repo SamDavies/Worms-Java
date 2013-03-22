@@ -98,8 +98,8 @@ public class Maps {
 		
 		//adding reactive objects
 		{
-			for(int j=570; j>400; j=j-11){	
-				for(int i=400; i<710; i=i+11){
+			for(int j=570; j>400; j=j-3){	
+				for(int i=400; i<710; i=i+3){
 					temp[0]=i;temp[1]=j;
 					this.objectPositionsXAtIndex.add(temp[0]);
 					this.objectPositionsYAtIndex.add(temp[1]);

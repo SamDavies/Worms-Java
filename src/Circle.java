@@ -18,7 +18,7 @@ public class Circle {
 		double a = r.x;
 		double b = r.y;
 		double c = r.height;
-		double d = r.width;		
+		double d = r.width;	
 		
 		double distTL = Math.sqrt((x-a) * (x-a) + (y-b) * (y-b));
 		double distTR = Math.sqrt(((x+c)-a) * ((x+c)-a) + (y-b) * (y-b));

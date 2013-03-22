@@ -35,6 +35,7 @@ public class Weapon implements ActionListener {
 	private int expIndex; // trajectoryIncrements
 
 	boolean delete = true;
+	RoundCollision collisionCircle = new RoundCollision(this.x, this.y, 20);
 
 	// that we are currently at
 
@@ -113,14 +114,9 @@ public class Weapon implements ActionListener {
 
 	public boolean checkCollisionReactive() {
 		for (int i = 0; i < reactiveobjects.size(); i++) {
-
 			
-			if (rectangle.intersects(reactiveobjects.get(i).rectangle)) {
-				/*rectangle = new Rectangle(x - 50, y - 50, x + 100, y + 100);
-
-				if (rectangle.intersects(reactiveobjects.get(i).rectangle)) {
-					reactiveobjects.get(i).destroy(player);
-				}*/
+						
+			if (collisionCircle.intersects(reactiveobjects.get(i).rectangle)) {			
 
 				return true;
 			}
@@ -229,6 +225,8 @@ public class Weapon implements ActionListener {
 	public void updateRectangle() {
 		this.rectangle = new Rectangle(this.x, this.y,
 				currentImage.getWidth(null), currentImage.getHeight(null));
+		
+		collisionCircle = new RoundCollision(this.x, this.y, currentImage.getWidth(null));
 	}
 
 	@Override
