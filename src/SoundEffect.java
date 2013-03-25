@@ -14,7 +14,9 @@ import javax.sound.sampled.*;
 public enum SoundEffect {
    EXPLODE1("sounds/Explosion1.wav"),
    EXPLODE2("sounds/Explosion2.wav"),
-   EXPLODE3("sounds/Explosion3.wav");  // explosion
+   EXPLODE3("sounds/Explosion3.wav"),
+   COUGH("sounds/COUGH.WAV"),
+   STARTROUND("sounds/StartRound.wav");  // explosion
    // GONG("gong.wav"),         // gong
    // SHOOT("shoot.wav");       // bullet
    

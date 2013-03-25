@@ -154,6 +154,9 @@ public class StartGame extends JFrame implements ActionListener { //the class th
 					}
 			if(e.getActionCommand()==panel1.btnNewButton.getActionCommand())
 		{	
+			
+				SoundEffect.STARTROUND.play();
+				
 			this.player1Name=panel1.textArea.getText();
 			this.player2Name=panel1.textArea_1.getText();
 			mainclass=new MainClass(this.getPlayer1Name(), this.getPlayer2Name(),new Maps(1));

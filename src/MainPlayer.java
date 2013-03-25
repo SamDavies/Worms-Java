@@ -28,7 +28,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	Line2D.Double lineBottom, lineTop; // this is a Line2D object used to check
 										// for collision with the bottom of the
 										// screen
-	boolean injump = false, directionRight = false; // true if the object faces
+	boolean injump = false, directionRight = true; // true if the object faces
 													// right and false if it
 													// faces left
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
@@ -36,8 +36,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
 	MainPlayer enemy;
 	Timer timer;
-	int gravityIncrment = 0;
-	int walk = 1;
+	int gravityIncrment = 0;	
 	int jumpQuantity;
 	boolean canDoubleJump = false;
 	private int grenadesAvailable = 50;
@@ -74,18 +73,18 @@ public class MainPlayer implements ActionListener { // the class for the user
 		ImageIcon tempImageIcon;
 		annimationImages = new Image[4]; // this function allocates space in the
 											// memory for the images of
-		tempImageIcon = new ImageIcon("worms-right.png"); // the player and
+		tempImageIcon = new ImageIcon("walk0.png"); // the player and
 															// retrieves the
 															// images from
 															// the file system
 		annimationImages[0] = tempImageIcon.getImage(); // images with index 0
 														// and 1 are for moving
 														// right and 2 and 3 are
-		tempImageIcon = new ImageIcon("worms-right1.png"); // for moving left
+		tempImageIcon = new ImageIcon("walk1.png"); // for moving left
 		annimationImages[1] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("worms-left.png");
+		tempImageIcon = new ImageIcon("walk2.png");
 		annimationImages[2] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("worms-left1.png");
+		tempImageIcon = new ImageIcon("walk3.png");
 		annimationImages[3] = tempImageIcon.getImage();
 
 	}
@@ -205,7 +204,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				// new
 				Rectangle temp = new Rectangle(x, y,
 						playerImage.getWidth(null) + 5,
-						playerImage.getHeight(null) - 4);
+						playerImage.getHeight(null) - 6);
 				boolean sum = true;
 				for (int j = 0; j < r.size(); j++) {
 
@@ -215,8 +214,8 @@ public class MainPlayer implements ActionListener { // the class for the user
 					}
 				}
 				if (sum) {
-					this.addX(1);
-					this.addY(-2);
+					this.addX(3);
+					this.addY(-6);
 					this.updateRectangle();
 				}
 				// new
@@ -333,12 +332,16 @@ public class MainPlayer implements ActionListener { // the class for the user
 	public void moveRight(int amount) {
 		this.setDirectionRight(true);
 
-		if (!playerImage.equals(annimationImages[0])) {
+		if (playerImage.equals(annimationImages[3])) {
 			playerImage = annimationImages[0];
-			walk++;
-		} else
-			playerImage = annimationImages[walk % 2];
-		walk++;
+		}else if (playerImage.equals(annimationImages[2])) {
+			playerImage = annimationImages[3];			
+		} else if(playerImage.equals(annimationImages[1])){
+			playerImage = annimationImages[2];
+		} else if(playerImage.equals(annimationImages[0])){
+			playerImage = annimationImages[1];			
+		}
+		
 
 		if (this.x < 750) // this functions moves the player to the right
 			if (checkCollisionRight(staticobjects, reactiveobjects) == false) {

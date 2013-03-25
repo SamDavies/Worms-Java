@@ -169,9 +169,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				playerJump();
 			}
 			if (pressedKeys.contains(KeyEvent.VK_RIGHT))
-				p.moveRight(3);
+				p.moveRight(1);
 			if (pressedKeys.contains(KeyEvent.VK_LEFT))
-				p.moveLeft(3);
+				p.moveLeft(1);
 			if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
 				weaponLaunch(0);
 			}
@@ -186,9 +186,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				playerJump();
 			}
 			if (pressedKeys.contains(KeyEvent.VK_RIGHT))
-				p.moveRight(3);
+				p.moveRight(1);
 			if (pressedKeys.contains(KeyEvent.VK_LEFT))
-				p.moveLeft(3);
+				p.moveLeft(1);
 			if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
 				weaponLaunch(1);
 			}
@@ -441,6 +441,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 
 	public void fire(double velocity) {
 
+		SoundEffect.COUGH.play();
+		
 		double mx = mouseXY[0];
 		double my = mouseXY[1] * Math.PI;
 		double angleR = Math.atan(my / mx); // calcs angle
