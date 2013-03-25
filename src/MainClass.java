@@ -87,6 +87,15 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			case 6:
 				reactiveobjects.add(new ReactiveObjects(posX, posY, 3));
 				break;
+			case 7:
+				reactiveobjects.add(new ReactiveObjects(posX, posY, 4));
+				break;
+			case 8:
+				reactiveobjects.add(new ReactiveObjects(posX, posY, 5));
+				break;
+			case 9:
+				reactiveobjects.add(new ReactiveObjects(posX, posY, 6));
+				break;
 			}
 		}
 		this.player1WeaponImage = (new ImageIcon("images/weapons/missile0.png")
@@ -94,7 +103,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		this.player2WeaponImage = (new ImageIcon("images/weapons/missile0.png")
 				.getImage());
 
-		player1 = new MainPlayer(50, 300, staticobjects, reactiveobjects,
+		player1 = new MainPlayer(50, 50, staticobjects, reactiveobjects,
 				player2);
 		player2 = new MainPlayer(700, 100, staticobjects, reactiveobjects,
 				player1);
@@ -120,6 +129,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 					timeLeftInTurn = 30;
 				} else
 					timeLeftInTurn--;
+				if (timeLeftInTurn>0 && timeLeftInTurn<=10){
+					SoundEffect.TIMERTICK.play();
+				}
 				board = createResultBoard();
 			}
 		});
@@ -375,18 +387,18 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		// create the result board
 		g.drawImage(player1.playerImage, player1.x, player1.y, null);
 		if (player2 != null)
-			g.drawImage(player2.playerImage, player2.x, player2.y, null);
-		if (staticobjects.isEmpty() == false)
-			for (int i = 0; i < staticobjects.size(); i++)
-				if (staticobjects.get(i).visible == true)
-					g.drawImage(staticobjects.get(i).objectImage,
-							staticobjects.get(i).x, staticobjects.get(i).y,
-							null);
+			g.drawImage(player2.playerImage, player2.x, player2.y, null);		
 		if (reactiveobjects.isEmpty() == false)
 			for (int i = 0; i < reactiveobjects.size(); i++)
 				if (reactiveobjects.get(i).visible == true)
 					g.drawImage(reactiveobjects.get(i).currentImage,
 							reactiveobjects.get(i).x, reactiveobjects.get(i).y,
+							null);
+		if (staticobjects.isEmpty() == false)
+			for (int i = 0; i < staticobjects.size(); i++)
+				if (staticobjects.get(i).visible == true)
+					g.drawImage(staticobjects.get(i).objectImage,
+							staticobjects.get(i).x, staticobjects.get(i).y,
 							null);
 		if (missiles.isEmpty() == false)
 			for (int i = 0; i < missiles.size(); i++)

@@ -73,18 +73,18 @@ public class MainPlayer implements ActionListener { // the class for the user
 		ImageIcon tempImageIcon;
 		annimationImages = new Image[4]; // this function allocates space in the
 											// memory for the images of
-		tempImageIcon = new ImageIcon("walk0.png"); // the player and
+		tempImageIcon = new ImageIcon("worms-right.png"); // the player and
 															// retrieves the
 															// images from
 															// the file system
 		annimationImages[0] = tempImageIcon.getImage(); // images with index 0
 														// and 1 are for moving
 														// right and 2 and 3 are
-		tempImageIcon = new ImageIcon("walk1.png"); // for moving left
+		tempImageIcon = new ImageIcon("worms-right1.png"); // for moving left
 		annimationImages[1] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("walk2.png");
+		tempImageIcon = new ImageIcon("worms-left.png");
 		annimationImages[2] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("walk3.png");
+		tempImageIcon = new ImageIcon("worms-left1.png");
 		annimationImages[3] = tempImageIcon.getImage();
 
 	}
@@ -179,6 +179,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	}
 
 	public void getsHit(int damage) {
+		SoundEffect.DAMAGE.play();
 		this.playerHealth -= damage;
 		if (this.playerHealth < 0)
 			this.playerHealth = 0;
@@ -332,14 +333,11 @@ public class MainPlayer implements ActionListener { // the class for the user
 	public void moveRight(int amount) {
 		this.setDirectionRight(true);
 
-		if (playerImage.equals(annimationImages[3])) {
+		if (!playerImage.equals(annimationImages[0])) {
 			playerImage = annimationImages[0];
-		}else if (playerImage.equals(annimationImages[2])) {
-			playerImage = annimationImages[3];			
-		} else if(playerImage.equals(annimationImages[1])){
-			playerImage = annimationImages[2];
-		} else if(playerImage.equals(annimationImages[0])){
-			playerImage = annimationImages[1];			
+		}else if (playerImage.equals(annimationImages[0])) {
+			playerImage = annimationImages[1];
+				
 		}
 		
 
@@ -356,9 +354,9 @@ public class MainPlayer implements ActionListener { // the class for the user
 		directionRight = false;
 		if (!playerImage.equals(annimationImages[2]))
 			playerImage = annimationImages[2];
-		else
+		else if(playerImage.equals(annimationImages[2])){
 			playerImage = annimationImages[3]; // this function moves the player
-												// to the left
+		}								// to the left
 		if (this.x > 0)
 			if (checkCollisionLeft(staticobjects, reactiveobjects) == false) {
 				this.addX(-amount);
@@ -371,10 +369,12 @@ public class MainPlayer implements ActionListener { // the class for the user
 	public void startJump(int a) {
 		this.setInjump(true); // this starts a jump of the player
 		if (a == 0) {
+			SoundEffect.WORMPOP.play();
 			this.setJumpSpeed(jumpSpeedBound);
 			jumpQuantity = 1;
 			canDoubleJump = true;
 		} else if (a == 1 && canDoubleJump == true) {
+			SoundEffect.BACKFLIP.play();
 			jumpQuantity = -2;
 			jumpSpeed += jumpSpeedBound;
 			canDoubleJump = false;
@@ -424,8 +424,12 @@ public class MainPlayer implements ActionListener { // the class for the user
 			if (gravitySpeed < gravitySpeedBound)
 				this.setGravitySpeed(gravitySpeed + 1);
 			this.updateRectangle();
-		} else
+		} else{
+			if(gravitySpeed>0){
+				SoundEffect.WORMIMPACT.play();
+			}
 			this.setGravitySpeed(0);
+		}
 
 	}
 

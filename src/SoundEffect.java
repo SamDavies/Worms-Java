@@ -16,7 +16,12 @@ public enum SoundEffect {
    EXPLODE2("sounds/Explosion2.wav"),
    EXPLODE3("sounds/Explosion3.wav"),
    COUGH("sounds/COUGH.WAV"),
-   STARTROUND("sounds/StartRound.wav");  // explosion
+   STARTROUND("sounds/StartRound.wav"),
+   TIMERTICK("sounds/TIMERTICK.WAV"),
+   WORMPOP("sounds/WORMPOP.WAV"), 
+   WORMIMPACT("sounds/WORMIMPACT.WAV"), 
+   BACKFLIP("sounds/Walk-Expand.wav"), 
+   DAMAGE("sounds/damage.wav");  // explosion
    // GONG("gong.wav"),         // gong
    // SHOOT("shoot.wav");       // bullet
    

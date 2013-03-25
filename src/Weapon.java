@@ -107,8 +107,7 @@ public class Weapon implements ActionListener {
 		if (y > 575)
 			return true;
 		for (int i = 0; i < staticobjects.size(); i++)
-			if (collisionCircle.intersects(reactiveobjects.get(i).rectangle)) {
-				reactiveobjects.get(i).destroy(player);
+			if (collisionCircle.intersects(staticobjects.get(i).rectangle)) {				
 				return true;
 			}
 		return false;
@@ -129,7 +128,7 @@ public class Weapon implements ActionListener {
 	public void destroyRadius() {
 
 		if (delete) {
-			Circle circle = new Circle(x,y,40);
+			Circle circle = new Circle(x,y,50);
 			for (int i = 0; i < reactiveobjects.size(); i++) {
 				if (circle.intersects(reactiveobjects.get(i).rectangle)) {
 					reactiveobjects.get(i).destroy(player);
@@ -201,7 +200,7 @@ public class Weapon implements ActionListener {
 
 		for (int i = 1; i < 1000; i++) {
 
-			double s = vertSpeed * t + 0.5 * -200 * i * t * i * t; // slower
+			double s = vertSpeed * t + 0.5 * -600 * i * t * i * t; // slower
 																	// gravity
 																	// set from
 																	// real

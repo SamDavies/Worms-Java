@@ -119,8 +119,8 @@ public class Maps {
 		{
 				//map equations ***************************************************
 				//*****************************************************************
-			for (int j = 570; j > 0; j = j - 4) {
-				for (int i = 0; i < 800; i = i + 4) {
+			for (int j = 570; j > 0; j = j - 2) {
+				for (int i = 0; i < 800; i = i + 2) {
 					double x = (int) i;
 					if ((j>10*Math.sin(x/30)+500) 
 							|
@@ -134,13 +134,19 @@ public class Maps {
 
 				//*****************************************************************	
 				//map equations ***************************************************
-						
-						temp[0] = i;
-						temp[1] = j;
-						this.objectPositionsXAtIndex.add(temp[0]);
-						this.objectPositionsYAtIndex.add(temp[1]);
-						this.objectTypeAtIndex.add(6);
-						
+						if(i%4==0 & j%4 ==0){
+							temp[0] = i;
+							temp[1] = j;
+							this.objectPositionsXAtIndex.add(temp[0]);
+							this.objectPositionsYAtIndex.add(temp[1]);
+							this.objectTypeAtIndex.add(6);
+						}else if((i+2)%4==0 & (j+2)%4 ==0){
+							temp[0] = i;
+							temp[1] = j;
+							this.objectPositionsXAtIndex.add(temp[0]);
+							this.objectPositionsYAtIndex.add(temp[1]);
+							this.objectTypeAtIndex.add(8);	
+						}
 					}
 				}
 			}
