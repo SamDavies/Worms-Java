@@ -32,7 +32,7 @@ public class StartGame extends JFrame implements ActionListener { //the class th
 
 	public StartGame(){
 		MapWinner=new String[3];
-		this.setSize(800, 650);
+		this.setSize(1000, 650);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

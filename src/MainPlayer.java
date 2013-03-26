@@ -252,7 +252,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				// new
 				Rectangle temp = new Rectangle(x - 5, y,
 						playerImage.getWidth(null) + 5,
-						playerImage.getHeight(null)-4);
+						playerImage.getHeight(null)-6);
 				boolean sum = true;
 				for (int j = 0; j < r.size(); j++) {
 
@@ -262,8 +262,8 @@ public class MainPlayer implements ActionListener { // the class for the user
 					}
 				}
 				if (sum) {
-					this.addX(-1);
-					this.addY(-2);
+					this.addX(-3);
+					this.addY(-6);
 					this.updateRectangle();
 				}
 				// new
@@ -355,7 +355,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 		}
 		
 
-		if (this.x < 750) // this functions moves the player to the right
+		if (this.x < 950 & this.x>0) // this functions moves the player to the right
 			if (checkCollisionRight(staticobjects, reactiveobjects) == false) {
 				this.addX(amount);
 				this.updateRectangle();
@@ -371,7 +371,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 		else if(playerImage.equals(annimationImages[2])){
 			playerImage = annimationImages[3]; // this function moves the player
 		}								// to the left
-		if (this.x > 0)
+		if (this.x > 0 & this.x < 950)
 			if (checkCollisionLeft(staticobjects, reactiveobjects) == false) {
 				this.addX(-amount);
 				this.updateRectangle();

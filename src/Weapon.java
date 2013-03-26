@@ -35,7 +35,7 @@ public class Weapon implements ActionListener {
 	private int expIndex; // trajectoryIncrements
 
 	boolean delete = true;
-	RoundCollision collisionCircle = new RoundCollision(this.x, this.y, 20);
+	RoundCollision collisionCircle = new RoundCollision(this.x+(this.imageWidth/2), this.y+(this.imageHeight/2), 10);
 
 	// that we are currently at
 
@@ -71,7 +71,7 @@ public class Weapon implements ActionListener {
 
 	public void loadAnnimationImages() {
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 1; i <= 16; i++) {
 			ImageIcon tempImageIcon = new ImageIcon("images/grenade/grenade"
 					+ i + ".png");
 			annimationImages.add(tempImageIcon.getImage());
@@ -114,7 +114,7 @@ public class Weapon implements ActionListener {
 	}
 
 	public boolean checkCollisionReactive() {
-		for (int i = 0; i < reactiveobjects.size(); i++) {	
+		for (int i = 0; i < reactiveobjects.size(); i=i+10) {	
 						
 			if (collisionCircle.intersects(reactiveobjects.get(i).rectangle)) {	
 				reactiveobjects.get(i).destroy(player);
@@ -208,8 +208,8 @@ public class Weapon implements ActionListener {
 																	// to
 																	// -200m/s2
 
-			xyPos[i][1] = (int) Math.round(s) - xyPos[i - 1][1];
-			xyPos[i][0] = (int) Math.round(horrSpeed);
+			xyPos[i][1] = (int) (s) - xyPos[i - 1][1];
+			xyPos[i][0] = (int) (horrSpeed);
 		}
 
 		return xyPos;
@@ -239,7 +239,7 @@ public class Weapon implements ActionListener {
 							move();
 							updateRectangle();
 							currentImage = annimationImages
-									.get(trajectoryIndex % 7);
+									.get(trajectoryIndex % 16);
 							trajectoryIndex++;
 						} else
 							destroy();
