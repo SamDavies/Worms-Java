@@ -134,22 +134,57 @@ public class Maps {
 
 				//*****************************************************************	
 				//map equations ***************************************************
-						if(i%4==0 & j%4 ==0){
+						//if(i%2==0 & j%2==0){
 							temp[0] = i;
 							temp[1] = j;
 							this.objectPositionsXAtIndex.add(temp[0]);
 							this.objectPositionsYAtIndex.add(temp[1]);
 							this.objectTypeAtIndex.add(6);
-						}else if((i+2)%4==0 & (j+2)%4 ==0){
-							temp[0] = i;
-							temp[1] = j;
-							this.objectPositionsXAtIndex.add(temp[0]);
-							this.objectPositionsYAtIndex.add(temp[1]);
-							this.objectTypeAtIndex.add(8);	
+						//}else if((i+2)%4==0 & (j+2)%4==0){
+						//	temp[0] = i;
+						//	temp[1] = j;
+						//	this.objectPositionsXAtIndex.add(temp[0]);
+						//	this.objectPositionsYAtIndex.add(temp[1]);
+						//	this.objectTypeAtIndex.add(8);	
 						}
 					}
 				}
 			}
+			//map equations ***************************************************
+			//*****************************************************************
+		/*{
+		for (int j = 570; j > 0; j = j - 2) {
+			for (int i = 0; i < 800; i = i + 2) {
+				double x = (int) i;
+				if ((j>10*Math.sin(x/30)+500) 
+						|
+						((j > 500 - 150 * Math
+						.sqrt((2 * Math.PI) * Math.exp((-x * x / 80000))) & (j < 500 - 1000 * Math
+						.sqrt((2 * Math.PI) * Math.exp((-(x-1000) * (x-600) / 80000))))))
+						|
+						(j>300-(0.0001*(x-700)*(x-700)*(x-700)-0.003*(x-700)*(x-700)))
+						|
+						((j>38)&(j<250-(0.01*(x-400)*(x-400))))) {
+
+			//*****************************************************************	
+			//map equations ***************************************************
+					//if(i%2==0 & j%2==0){
+					//	temp[0] = i;
+					//	temp[1] = j;
+					//	this.objectPositionsXAtIndex.add(temp[0]);
+					//	this.objectPositionsYAtIndex.add(temp[1]);
+					//	this.objectTypeAtIndex.add(6);
+					//}else if((i+2)%4==0 & (j+2)%4==0){
+						temp[0] = i;
+						temp[1] = j;
+						this.objectPositionsXAtIndex.add(temp[0]);
+						this.objectPositionsYAtIndex.add(temp[1]);
+						this.objectTypeAtIndex.add(8);	
+					}
+				}
+			}
+		}	*/
+		{
 			temp[0] = 200;
 			temp[1] = 470;
 			this.objectPositionsXAtIndex.add(temp[0]);

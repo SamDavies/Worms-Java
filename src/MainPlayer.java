@@ -71,21 +71,23 @@ public class MainPlayer implements ActionListener { // the class for the user
 
 	public void loadAnnimationImages() {
 		ImageIcon tempImageIcon;
-		annimationImages = new Image[4]; // this function allocates space in the
+		annimationImages = new Image[5]; // this function allocates space in the
 											// memory for the images of
-		tempImageIcon = new ImageIcon("worms-right.png"); // the player and
+		tempImageIcon = new ImageIcon("walking1.png"); // the player and
 															// retrieves the
 															// images from
 															// the file system
 		annimationImages[0] = tempImageIcon.getImage(); // images with index 0
 														// and 1 are for moving
 														// right and 2 and 3 are
-		tempImageIcon = new ImageIcon("worms-right1.png"); // for moving left
+		tempImageIcon = new ImageIcon("walking2.png"); // for moving left
 		annimationImages[1] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("worms-left.png");
+		tempImageIcon = new ImageIcon("walking3.png");
 		annimationImages[2] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("worms-left1.png");
+		tempImageIcon = new ImageIcon("walking4.png");
 		annimationImages[3] = tempImageIcon.getImage();
+		tempImageIcon = new ImageIcon("walking5.png");
+		annimationImages[4] = tempImageIcon.getImage();
 
 	}
 
@@ -159,16 +161,25 @@ public class MainPlayer implements ActionListener { // the class for the user
 	// getters and setters
 
 	public void hasHit(String type) {
-		switch (type) {
-		case "gold":
+		int a =0;
+		if(type=="gold"){
+			a=1;
+		}else{if(type=="diamond"){
+			a=2;
+		}else{if(type=="heart"){
+			a=3;
+		}}}
+		
+		switch (a) {
+		case 1:
 			this.grenadesAvailable += 2;
 			this.missilesAvailable += 5;
 			break;
-		case "diamond":
+		case 2:
 			this.grenadesAvailable += 5;
 			this.missilesAvailable += 10;
 			break;
-		case "heart":
+		case 3:
 			if (this.playerHealth <= 80)
 				this.playerHealth += 20;
 			else
@@ -197,9 +208,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 				return true; // to the right of the player
 			} // it uses playerRectangleRight rectangle
 		} // which extends to the right of the player
-		for (int i = 0; i < r.size(); i++) // we have a separate loop for every
-											// type of
-		{ // arraylist
+		for (int i = 0; i < r.size(); i++){ 
 			if (playerRectangleRight.intersects(r.get(i).rectangle)) {
 
 				// new
@@ -333,11 +342,16 @@ public class MainPlayer implements ActionListener { // the class for the user
 	public void moveRight(int amount) {
 		this.setDirectionRight(true);
 
-		if (!playerImage.equals(annimationImages[0])) {
-			playerImage = annimationImages[0];
-		}else if (playerImage.equals(annimationImages[0])) {
+		if (playerImage.equals(annimationImages[0])) {
 			playerImage = annimationImages[1];
-				
+		}else if (playerImage.equals(annimationImages[1])) {
+			playerImage = annimationImages[2];				
+		}else if (playerImage.equals(annimationImages[2])) {
+			playerImage = annimationImages[3];				
+		}else if (playerImage.equals(annimationImages[3])) {
+			playerImage = annimationImages[4];				
+		}else if (playerImage.equals(annimationImages[4])) {
+			playerImage = annimationImages[0];				
 		}
 		
 

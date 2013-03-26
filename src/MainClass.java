@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
@@ -43,8 +44,13 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 
 	MainPlayer p = player1;
 	MainPlayer p2 = player2;
+	
+	int boxPos= -200;
+	int randX = 0;
+	boolean drop = false;
+	StaticObjects box = new StaticObjects(randX, boxPos, 0);
 
-	public MainClass(String player1Name, String player2Name, Maps map) {
+	public MainClass(String player1Name, String player2Name, Maps map) {		
 		this.player1Name = player1Name;
 		this.player2Name = player2Name;
 		this.setFocusable(true);
@@ -116,6 +122,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				
 				if (timeLeftInTurn == 0) {
 					if (player1Turn == true)
 						player1Turn = false;
@@ -131,9 +139,12 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 					timeLeftInTurn--;
 				if (timeLeftInTurn>0 && timeLeftInTurn<=10){
 					SoundEffect.TIMERTICK.play();
-				}
+				}				
+				
 				board = createResultBoard();
 			}
+
+			
 		});
 
 		player1Turn = true;
@@ -142,6 +153,28 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		changeTurns.start();
 	}
 
+	private void dropBox(int boxPos, int randX) {		
+				
+				int frame = 0;
+				int condition = (boxPos + 200) %32;
+				
+				if(condition==0){frame = 1;}
+				else if(condition==4){frame = 2;}
+				else if(condition==8){frame = 3;}
+				else if(condition==12){frame = 4;}
+				else if(condition==16){frame = 5;}
+				else if(condition==20){frame = 4;}
+				else if(condition==24){frame = 3;}
+				else if(condition==28){frame = 2;}			
+				
+				
+				box.setImage(frame);
+				box.setX(randX);
+				box.setY(boxPos);
+				box.updateRectangle();
+				
+			}
+	
 	public void updateGameVariables() {
 		player1.updateSystemVariables(staticobjects, reactiveobjects, player2);
 		if (player2 != null)
@@ -358,6 +391,21 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	public void actionPerformed(ActionEvent e) { // fires automatically when an
 													// event happens i.e. when
 													// timer activates it
+		// drop in box at end of turn
+		if(timeLeftInTurn==0){
+			box.make();
+			drop=true;
+			}
+		if(drop==true){
+			if(boxPos==-200){
+				Random rand = new Random();
+				randX=rand.nextInt(600);
+			}
+			boxPos++;
+			dropBox(boxPos, randX);
+		}
+		// drop in box at end of turn
+		
 		invisibleObjectCleaner(staticobjects, reactiveobjects, missiles,
 				grenades, bullets);
 		updateGameVariables();
@@ -368,6 +416,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		} else {
 			clickVelocity = 0;
 		}
+				
 	}
 
 	public void paintComponent(Graphics g) {
@@ -421,6 +470,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		else
 			g.drawLine(player2.getX(), player2.getY() - 10,
 					player2.getX() + 40, player2.getY() - 10);
+		
+		g.drawImage(box.objectImage,box.x,box.y,null);
 	}
 
 	private String createResultBoard() {
