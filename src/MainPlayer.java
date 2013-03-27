@@ -34,7 +34,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
 											// arraylists that are created
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
-	MainPlayer enemy;
+	ArrayList<MainPlayer> enemies = new ArrayList<MainPlayer>();
 	Timer timer;
 	int gravityIncrment = 0;	
 	int jumpQuantity;
@@ -43,7 +43,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	private int missilesAvailable = 5;
 
 	public MainPlayer(int xvalue, int yvalue, ArrayList<StaticObjects> s,
-			ArrayList<ReactiveObjects> r, MainPlayer enemy) {
+			ArrayList<ReactiveObjects> r, ArrayList<MainPlayer> enemies) {
 		x = xvalue;
 		y = yvalue;
 		jumpSpeed = 0; // this function sets the variables of this object
@@ -67,7 +67,13 @@ public class MainPlayer implements ActionListener { // the class for the user
 		timer = new Timer(50, this);
 		timer.addActionListener(this);
 		timer.start();
+		
+		this.enemies = enemies;
+		
+				
+		
 	}
+	
 
 	public void loadAnnimationImages() {
 		ImageIcon tempImageIcon;
@@ -198,9 +204,14 @@ public class MainPlayer implements ActionListener { // the class for the user
 
 	public boolean checkCollisionRight(ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r) {
-		if (enemy != null)
-			if (playerRectangleRight.intersects(enemy.CollisionRectangle))
-				return true;
+		
+		for(int i = 0; i<4; i++){
+			if (enemies.get(i) != null){
+				if (playerRectangleRight.intersects(enemies.get(i).CollisionRectangle)){
+					return true;
+				}
+			}	
+		}
 		for (int i = 0; i < s.size(); i++) {
 			if (playerRectangleRight.intersects(s.get(i).rectangle)) {
 
@@ -238,9 +249,15 @@ public class MainPlayer implements ActionListener { // the class for the user
 
 	public boolean checkCollisionLeft(ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r) {
-		if (enemy != null)
-			if (playerRectangleLeft.intersects(enemy.CollisionRectangle))
-				return true;
+		
+		for(int i = 0; i<4; i++){
+			if (enemies.get(i) != null){
+				if (playerRectangleLeft.intersects(enemies.get(i).CollisionRectangle)){
+					return true;
+				}
+			}
+		}
+			
 		for (int i = 0; i < s.size(); i++) { // same as checkCollisonRight
 			if (playerRectangleLeft.intersects(s.get(i).rectangle)) {
 
@@ -278,10 +295,12 @@ public class MainPlayer implements ActionListener { // the class for the user
 		if (this.playerRectangleJump.intersectsLine(this.lineTop))
 			return true;
 
-		if (enemy != null) {
-			if (playerRectangleJump.intersects(enemy.CollisionRectangle)) {
-				this.setY(enemy.y + enemy.playerImage.getHeight(null) + 1);
-				return true;
+		for(int i = 0; i<4; i++){
+			if (enemies.get(i) != null){
+				if (playerRectangleJump.intersects(enemies.get(i).CollisionRectangle)) {
+					this.setY(enemies.get(i).y + enemies.get(i).playerImage.getHeight(null) + 1);
+					return true;
+				}
 			}
 		}
 
@@ -316,10 +335,12 @@ public class MainPlayer implements ActionListener { // the class for the user
 		if (this.playerRectangleDown.intersectsLine(this.lineBottom))
 			return true;
 		// same as for checkCollisionDown
-		if (enemy != null){
-			if (playerRectangleDown.intersects(enemy.CollisionRectangle)) {
+		for(int i = 0; i<4; i++){
+			if (enemies.get(i) != null){
+				if (playerRectangleDown.intersects(enemies.get(i).CollisionRectangle)) {
 				
 				return true;
+				}
 			}
 		}
 
@@ -440,7 +461,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 			this.updateRectangle();
 		} else{
 			if(gravitySpeed>0){
-				SoundEffect.WORMIMPACT.play();
+		//		SoundEffect.WORMIMPACT.play();
 			}
 			this.setGravitySpeed(0);
 		}
@@ -462,10 +483,11 @@ public class MainPlayer implements ActionListener { // the class for the user
 	}
 
 	public void updateSystemVariables(ArrayList<StaticObjects> s,
-			ArrayList<ReactiveObjects> r, MainPlayer enemy) {
+			ArrayList<ReactiveObjects> r, ArrayList<MainPlayer> enemies ) {
 		this.staticobjects = s;
 		this.reactiveobjects = r;
-		this.enemy = enemy;
+		
+		this.enemies = enemies;
 	}
 
 	@Override

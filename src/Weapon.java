@@ -34,7 +34,7 @@ public class Weapon implements ActionListener {
 	private int trajectoryIndex; // this represents the index in
 	private int expIndex; // trajectoryIncrements
 
-	boolean delete = true;
+	
 	RoundCollision collisionCircle = new RoundCollision(this.x+(this.imageWidth/2), this.y+(this.imageHeight/2), 10);
 
 	// that we are currently at
@@ -49,8 +49,8 @@ public class Weapon implements ActionListener {
 
 		loadAnnimationImages();
 		loadDestructionImages();
-		player = p;
-		player.setGrenadesAvailable(player.getGrenadesAvailable() - 1);
+		this.player = p;
+		this.player.setGrenadesAvailable(player.getGrenadesAvailable() - 1);
 		this.enemy = enemy;
 		if (l == true) {
 			x = p.x + p.playerImage.getWidth(null);
@@ -96,8 +96,9 @@ public class Weapon implements ActionListener {
 				if (this.isDestroyed == false) {
 					enemy.getsHit(20);
 					this.hasHitEnemyDirectly = true;
-				} else if (this.hasHitEnemyDirectly == false)
-					enemy.getsHit(1);
+				//} else if (this.hasHitEnemyDirectly == false){
+				//	enemy.getsHit(15);					
+				}
 				return true;
 			}
 		return false;
@@ -127,16 +128,22 @@ public class Weapon implements ActionListener {
 
 	public void destroyRadius() {
 
-		if (delete) {
+		 
 			Circle circle = new Circle(x,y,50);
 			for (int i = 0; i < reactiveobjects.size(); i++) {
 				if (circle.intersects(reactiveobjects.get(i).rectangle)) {
-					reactiveobjects.get(i).destroy(player);
-
+					reactiveobjects.get(i).destroy(player);								
 				}
-				delete = false;
 			}
-		}
+			//damages players
+			if(collisionCircle.intersects(enemy.CollisionRectangle)){
+				enemy.getsHit(15);
+			}
+			if(collisionCircle.intersects(player.CollisionRectangle)){
+				player.getsHit(15);
+			}
+			//damages players
+			
 	}
 
 	public void move() {
@@ -210,6 +217,7 @@ public class Weapon implements ActionListener {
 
 			xyPos[i][1] = (int) (s) - xyPos[i - 1][1];
 			xyPos[i][0] = (int) (horrSpeed);
+			
 		}
 
 		return xyPos;

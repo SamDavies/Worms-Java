@@ -79,7 +79,7 @@ public class StartGame extends JFrame implements ActionListener { //the class th
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand()==timer.getActionCommand())
 		{
-			if(mainclass.player1.playerHealth==0&&mainclass.player2.playerHealth==0){
+			if(mainclass.team1.get(0).playerHealth==0&&mainclass.team2.get(0).playerHealth==0){
 				this.setVisible(false);
 				this.remove(mainclass);
 				MapWinner[currentMap]="The game was a draw";
@@ -103,7 +103,7 @@ public class StartGame extends JFrame implements ActionListener { //the class th
 				this.currentMap++;
 				}
 			
-			else if(mainclass.player2.playerHealth==0){
+			else if(mainclass.team2.get(0).playerHealth==0){
 				this.setVisible(false);
 				this.remove(mainclass);
 				MapWinner[currentMap]=this.getPlayer1Name();
@@ -127,7 +127,7 @@ public class StartGame extends JFrame implements ActionListener { //the class th
 				this.currentMap++;
 				}
 			
-			if(mainclass.player1.playerHealth==0){
+			if(mainclass.team1.get(0).playerHealth==0){
 				this.setVisible(false);
 				this.remove(mainclass);
 				MapWinner[currentMap]=this.getPlayer2Name();

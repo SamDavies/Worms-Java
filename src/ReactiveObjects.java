@@ -58,6 +58,36 @@ public class ReactiveObjects implements ActionListener {
 			tempImageIcon=new ImageIcon("images/reactive/brick4.png"); 
 			this.currentImage=tempImageIcon.getImage();
 			break;
+		case 7:
+			this.type="brick2Pix0";
+			tempImageIcon=new ImageIcon("images/reactive/brick2Pix0.png"); 
+			this.currentImage=tempImageIcon.getImage();
+			break;
+		case 8:
+			this.type="brick2Pix1";
+			tempImageIcon=new ImageIcon("images/reactive/brick2Pix1.png"); 
+			this.currentImage=tempImageIcon.getImage();
+			break;
+		case 9:
+			this.type="brick1Pix0";
+			tempImageIcon=new ImageIcon("images/reactive/brick1Pix0.png"); 
+			this.currentImage=tempImageIcon.getImage();
+			break;
+		case 10:
+			this.type="brick1Pix1";
+			tempImageIcon=new ImageIcon("images/reactive/brick1Pix1.png"); 
+			this.currentImage=tempImageIcon.getImage();
+			break;
+		case 11:
+			this.type="brick1Pix2";
+			tempImageIcon=new ImageIcon("images/reactive/brick1Pix2.png"); 
+			this.currentImage=tempImageIcon.getImage();
+			break;
+		case 12:
+			this.type="brick1Pix3";
+			tempImageIcon=new ImageIcon("images/reactive/brick1Pix3.png"); 
+			this.currentImage=tempImageIcon.getImage();
+			break;
 		
 		}
 		

@@ -135,6 +135,7 @@ public class Maps {
 							((j>38)&(j<curve5)&j>2*curve5-280)) {
 
 				
+						//if(i%2==0){ //used for pixel size 1
 							temp[0] = i;
 							temp[1] = j;
 							this.objectPositionsXAtIndex.add(temp[0]);
@@ -161,7 +162,7 @@ public class Maps {
 							(j> 20+curve4))
 							 {
 
-				
+						//if(i%2==0){ //used for pixel size 1
 							temp[0] = i;
 							temp[1] = j;
 							this.objectPositionsXAtIndex.add(temp[0]);

@@ -22,7 +22,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 
 	Timer timer, changeTurns; // this is the object which is going to call the
 								// function actionPerformed
-	MainPlayer player1, player2;
+	
+	ArrayList<MainPlayer> team1 = new ArrayList<MainPlayer>();
+	ArrayList<MainPlayer> team2 = new ArrayList<MainPlayer>();;
 	KeyListener listener1;
 	Image backgroundImage, boardImage, player1WeaponImage, player2WeaponImage;
 	ArrayList<Integer> pressedKeys = new ArrayList<Integer>();
@@ -32,7 +34,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	ArrayList<Weapon> grenades;
 	ArrayList<Bullet> bullets;
 	private double clickVelocity; // stores the velocity for weapon
-	boolean player1Turn, player2Turn;
+	int playerTurn = 1;
 	int[] mouseXY = new int[2]; // stores coordinates of mouse
 	int player1Weapon = 1, player2Weapon = 1;
 	int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 800;
@@ -42,8 +44,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	private String player1Name;
 	private String player2Name;
 
-	MainPlayer p = player1;
-	MainPlayer p2 = player2;
+	MainPlayer p; 
+	MainPlayer p2; 
 	
 	int boxPos= -200;
 	int randX = 0;
@@ -109,10 +111,25 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		this.player2WeaponImage = (new ImageIcon("images/weapons/missile0.png")
 				.getImage());
 
-		player1 = new MainPlayer(50, 50, staticobjects, reactiveobjects,
-				player2);
-		player2 = new MainPlayer(700, 100, staticobjects, reactiveobjects,
-				player1);
+		team1.add(new MainPlayer(50, 50, staticobjects, reactiveobjects,
+				team2));
+		team2.add(new MainPlayer(600, 100, staticobjects, reactiveobjects,
+				team1));
+		team1.add(new MainPlayer(500, 100, staticobjects, reactiveobjects,
+				team2));
+		team2.add(new MainPlayer(400, 100, staticobjects, reactiveobjects,
+				team1));
+		team1.add(new MainPlayer(300, 100, staticobjects, reactiveobjects,
+				team2));
+		team2.add(new MainPlayer(200, 100, staticobjects, reactiveobjects,
+				team1));
+		team1.add(new MainPlayer(100, 100, staticobjects, reactiveobjects,
+				team2));
+		team2.add(new MainPlayer(800, 100, staticobjects, reactiveobjects,
+				team1));
+				
+		this.p = team1.get(0);
+		this.p2 = team2.get(0);
 
 		this.addKeyListener(this);
 		this.addMouseListener(this);
@@ -125,14 +142,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				
 				
 				if (timeLeftInTurn == 0) {
-					if (player1Turn == true)
-						player1Turn = false;
-					else
-						player1Turn = true;
-					if (player2Turn == true)
-						player2Turn = false;
-					else
-						player2Turn = true;
+					playerTurn++;
 					weaponsUsedInTurn = 0;
 					timeLeftInTurn = 30;
 				} else
@@ -147,8 +157,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			
 		});
 
-		player1Turn = true;
-		player2Turn = false;
+		playerTurn = 1;
 		timer.start();
 		changeTurns.start();
 	}
@@ -176,10 +185,10 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			}
 	
 	public void updateGameVariables() {
-		player1.updateSystemVariables(staticobjects, reactiveobjects, player2);
-		if (player2 != null)
-			player2.updateSystemVariables(staticobjects, reactiveobjects,
-					player1);
+		team1.get(0).updateSystemVariables(staticobjects, reactiveobjects, team2);
+		if (team2.get(0) != null)
+			team2.get(0).updateSystemVariables(staticobjects, reactiveobjects,
+					team1);
 		if (missiles.isEmpty() == false)
 			for (int i = 0; i < missiles.size(); i++)
 				missiles.get(i).updateSystemVariables(staticobjects,
@@ -204,9 +213,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			pressedKeys.add(keycode);
 		}
 
-		if (player1Turn == true) {
-			p = player1;
-			p2 = player2;
+		if (playerTurn == 1) {
+			p = team1.get(0);
+			p2 = team2.get(0);
 			if (pressedKeys.contains(KeyEvent.VK_DOWN)) {
 				changeWeapon(0);
 			}
@@ -218,12 +227,12 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			if (pressedKeys.contains(KeyEvent.VK_LEFT))
 				p.moveLeft(1);
 			if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
-				weaponLaunch(0);
+				//weaponLaunch();
 			}
 
 		} else {
-			p = player2;
-			p2 = player1;
+			p = team2.get(0);
+			p2 = team1.get(0);
 			if (pressedKeys.contains(KeyEvent.VK_DOWN)) {
 				changeWeapon(1);
 			}
@@ -235,7 +244,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			if (pressedKeys.contains(KeyEvent.VK_LEFT))
 				p.moveLeft(1);
 			if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
-				weaponLaunch(1);
+				//weaponLaunch();
 			}
 		}
 
@@ -286,7 +295,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		}
 	}
 
-	public void weaponLaunch(int player) {
+	/*public void weaponLaunch() {
 		if (player == 0) {
 			if (this.weaponsUsedInTurn < this.MaxWeaponsPerTurn)
 				if (player1.directionRight == true) {
@@ -332,7 +341,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 					this.weaponsUsedInTurn++;
 				}
 		}
-	}
+	}*/
 	
 	public void stopTimers() {
 		this.timer.stop();
@@ -410,7 +419,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				grenades, bullets);
 		updateGameVariables();
 		repaint();
-		if (fired && (this.player1Weapon == 0 || this.player2Weapon == 0)) {
+		if (fired) {
 			clickVelocity += 20; // adds increments to the velocity every event
 									// when log timer is active
 		} else {
@@ -434,9 +443,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		g.drawImage(player1WeaponImage, 270, 5, null);
 		g.drawImage(player2WeaponImage, 700, 5, null);
 		// create the result board
-		g.drawImage(player1.playerImage, player1.x, player1.y, null);
-		if (player2 != null)
-			g.drawImage(player2.playerImage, player2.x, player2.y, null);		
+		g.drawImage(team1.get(0).playerImage, team1.get(0).x, team1.get(0).y, null);
+		if (team2.get(0) != null)
+			g.drawImage(team2.get(0).playerImage, team2.get(0).x, team2.get(0).y, null);		
 		if (reactiveobjects.isEmpty() == false)
 			for (int i = 0; i < reactiveobjects.size(); i++)
 				if (reactiveobjects.get(i).visible == true)
@@ -464,12 +473,12 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				if (bullets.get(i).visible == true)
 					g.drawImage(bullets.get(i).currentImage, bullets.get(i).x,
 							bullets.get(i).y, null);
-		if (player1Turn == true)
-			g.drawLine(player1.getX(), player1.getY() - 10,
-					player1.getX() + 40, player1.getY() - 10);
+		if (playerTurn == 1)
+			g.drawLine(team1.get(0).getX(), team1.get(0).getY() - 10,
+					team1.get(0).getX() + 40, team1.get(0).getY() - 10);
 		else
-			g.drawLine(player2.getX(), player2.getY() - 10,
-					player2.getX() + 40, player2.getY() - 10);
+			g.drawLine(team2.get(0).getX(), team2.get(0).getY() - 10,
+					team2.get(0).getX() + 40, team2.get(0).getY() - 10);
 		
 		g.drawImage(box.objectImage,box.x,box.y,null);
 	}
@@ -478,27 +487,27 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		String board = " ";
 		for (int i = 0; i < 5; i++)
 			board += "          ";
-		board += String.valueOf(player1.playerHealth);
+		board += String.valueOf(team1.get(0).playerHealth);
 		for (int i = 0; i < 5; i++)
 			board += "          ";
 		if (player1Weapon == 0)
-			board += player1.getGrenadesAvailable();
+			board += team1.get(0).getGrenadesAvailable();
 		if (player1Weapon == 1)
-			board += player1.getMissilesAvailable();
+			board += team1.get(0).getMissilesAvailable();
 		for (int i = 0; i < 2; i++)
 			board += "          ";
 		board += String.valueOf(timeLeftInTurn);
 		for (int i = 0; i < 5; i++)
 			board += "          ";
 		board += "          ";
-		board += String.valueOf(player2.playerHealth);
+		board += String.valueOf(team2.get(0).playerHealth);
 		for (int i = 0; i < 5; i++)
 			board += "          ";
 		board += "   ";
 		if (player2Weapon == 0)
-			board += player2.getGrenadesAvailable();
+			board += team2.get(0).getGrenadesAvailable();
 		if (player2Weapon == 1)
-			board += player2.getMissilesAvailable();
+			board += team2.get(0).getMissilesAvailable();
 		return board;
 	}
 
@@ -510,23 +519,69 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		double my = mouseXY[1] * Math.PI;
 		double angleR = Math.atan(my / mx); // calcs angle
 		double angleL = Math.atan(my / -mx); // calcs -angle
-		if (player1Turn == true) {
-			if (player1.directionRight == true)
-				grenades.add(new Weapon(player1, player2, staticobjects,
-						reactiveobjects, true, clickVelocity, angleR));
-			else
-				grenades.add(new Weapon(player1, player2, staticobjects,
+		
+		if (playerTurn ==  1) {
+			if (this.weaponsUsedInTurn < this.MaxWeaponsPerTurn)
+				if (team1.get(0).directionRight == true) {
+					if (player1Weapon == 1
+							&& team1.get(0).getMissilesAvailable() > 0)
+						missiles.add(new Missile(team1.get(0), team2.get(0),
+								staticobjects, reactiveobjects, true, clickVelocity, angleR));
+					if (player1Weapon == 2)
+						bullets.add(new Bullet(team1.get(0), team2.get(0), staticobjects,
+								reactiveobjects, true));
+					if (player1Weapon == 0){
+						grenades.add(new Weapon(team1.get(0), team2.get(0), staticobjects,
+								reactiveobjects, true, clickVelocity, angleR));
+					}						
+					this.weaponsUsedInTurn++;
+				} else {
+					if (player1Weapon == 1
+							&& team1.get(0).getMissilesAvailable() > 0)
+						missiles.add(new Missile(team1.get(0), team2.get(0),
+								staticobjects, reactiveobjects, false, clickVelocity, angleL));
+					if (player1Weapon == 2)
+						bullets.add(new Bullet(team1.get(0), team2.get(0), staticobjects,
+								reactiveobjects, false));
+					if (player1Weapon == 0){
+						grenades.add(new Weapon(team1.get(0), team2.get(0), staticobjects,
+								reactiveobjects, false, clickVelocity, angleL));
+					}
+					this.weaponsUsedInTurn++;
+				}
+			
+			
+		} else if (playerTurn == 2) {
+			if (this.weaponsUsedInTurn < this.MaxWeaponsPerTurn)
+				if (team2.get(0).directionRight == true) {
+					if (player2Weapon == 1
+							&& team2.get(0).getMissilesAvailable() > 0)
+						missiles.add(new Missile(team2.get(0), team1.get(0),
+								staticobjects, reactiveobjects, true, clickVelocity, angleR));
+					if (player2Weapon == 2)
+						bullets.add(new Bullet(team2.get(0), team1.get(0), staticobjects,
+								reactiveobjects, true));
+					if (player2Weapon == 0){
+						grenades.add(new Weapon(team2.get(0), team1.get(0), staticobjects,
+								reactiveobjects, true, clickVelocity, angleR));
+					}
+					this.weaponsUsedInTurn++;
+				} else {
+					if (player2Weapon == 1)
+						missiles.add(new Missile(team2.get(0), team1.get(0),
+								staticobjects, reactiveobjects, false, clickVelocity, angleL));			
+						
+					if (player2Weapon == 2)
+						bullets.add(new Bullet(team2.get(0), team1.get(0), staticobjects,
+								reactiveobjects, false));
+					if (player2Weapon == 0){
+						grenades.add(new Weapon(team2.get(0), team1.get(0), staticobjects,
 						reactiveobjects, false, clickVelocity, angleL));
-		}
-
-		if (player2Turn == true) {
-			if (player2.directionRight == true)
-				grenades.add(new Weapon(player2, player1, staticobjects,
-						reactiveobjects, true, clickVelocity, angleR));
-			else
-				grenades.add(new Weapon(player2, player1, staticobjects,
-						reactiveobjects, false, clickVelocity, angleL));
-		}
+					}
+					this.weaponsUsedInTurn++;
+				}
+		}			
+		
 
 	}
 
@@ -537,8 +592,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		if (this.player2Weapon == 0 || this.player1Weapon == 0)
+	public void mousePressed(MouseEvent e) {		
 			fired = true;
 
 	}
@@ -547,30 +601,29 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	public void mouseReleased(MouseEvent e) {
 		int mousecode = e.getButton();
 		if (this.weaponsUsedInTurn < this.MaxWeaponsPerTurn)
-			if (player1Turn == true && this.player1Weapon == 0)
-				if (player1.getGrenadesAvailable() > 0) {
-					mouseXY[0] = e.getX() - player1.getX();// gets x of mouse
+			if (playerTurn == 1)
+				if (team1.get(0).getGrenadesAvailable() > 0) {
+					mouseXY[0] = e.getX() - team1.get(0).getX();// gets x of mouse
 															// and takes away
 															// player x
-					mouseXY[1] = player1.getY() - e.getY();// gets -y of mouse
+					mouseXY[1] = team1.get(0).getY() - e.getY();// gets -y of mouse
 															// and adds
 					// player y
 
 					if (mousecode == MouseEvent.BUTTON1) {
 						fire(clickVelocity); // fires weapon
-						fired = false;
-						; // ends the log
+						fired = false;						 
 						clickVelocity = 0; // resets click velocity
 						this.weaponsUsedInTurn++;
 					}
 				}
 		if (this.weaponsUsedInTurn < this.MaxWeaponsPerTurn)
-			if (player2Turn == true && this.player2Weapon == 0)
-				if (player1.getGrenadesAvailable() > 0) {
-					mouseXY[0] = e.getX() - player2.getX();// gets x of mouse
+			if (playerTurn == 2)
+				if (team1.get(0).getGrenadesAvailable() > 0) {
+					mouseXY[0] = e.getX() - team2.get(0).getX();// gets x of mouse
 															// and takes away
 															// player x
-					mouseXY[1] = player2.getY() - e.getY();// gets -y of mouse
+					mouseXY[1] = team2.get(0).getY() - e.getY();// gets -y of mouse
 															// and adds
 					// player y
 
