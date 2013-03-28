@@ -500,6 +500,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				if (bullets.get(i).visible == true)
 					g.drawImage(bullets.get(i).currentImage, bullets.get(i).x,
 							bullets.get(i).y, null);
+		
 		if (playerTurn == 1)
 			g.drawLine(team1.get(0).getX(), team1.get(0).getY() - 10,
 					team1.get(0).getX() + 40, team1.get(0).getY() - 10);
@@ -524,6 +525,28 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		else if (playerTurn == 8)
 			g.drawLine(team2.get(3).getX(), team2.get(3).getY() - 10,
 					team2.get(3).getX() + 40, team2.get(3).getY() - 10);
+		
+		double mx = mouseXY[0];
+		double my = mouseXY[1];
+		double angleR = -Math.atan(my / mx); // calcs angle
+		double angleL = Math.PI-Math.atan(my / mx); // calcs -angle
+		
+		g.setColor(Color.red);
+		if(!(clickVelocity==0)){
+			if(playerTurn%2==1){
+				if(team1.get((playerTurn-1)/2).directionRight){
+					g.drawLine(30+team1.get((playerTurn-1)/2).x, team1.get((playerTurn-1)/2).y, 30+team1.get((playerTurn-1)/2).x+(int)(clickVelocity*Math.cos(angleR)/20), team1.get((playerTurn-1)/2).y+(int)(clickVelocity*Math.sin(angleR)/20));
+				}else{
+					g.drawLine(team1.get((playerTurn-1)/2).x, team1.get((playerTurn-1)/2).y, team1.get((playerTurn-1)/2).x+(int)(clickVelocity*Math.cos(angleL)/20), team1.get((playerTurn-1)/2).y+(int)(clickVelocity*Math.sin(angleL)/20));
+				}
+			}else{
+				if(team2.get((playerTurn-1)/2).directionRight){
+					g.drawLine(30+team2.get((playerTurn-1)/2).x, team2.get((playerTurn-1)/2).y, 30+team2.get((playerTurn-1)/2).x+(int)(clickVelocity*Math.cos(angleR)/20), team2.get((playerTurn-1)/2).y+(int)(clickVelocity*Math.sin(angleR)/20));
+				}else{
+					g.drawLine(team2.get((playerTurn-1)/2).x, team2.get((playerTurn-1)/2).y, team2.get((playerTurn-1)/2).x+(int)(clickVelocity*Math.cos(angleL)/20), team2.get((playerTurn-1)/2).y+(int)(clickVelocity*Math.sin(angleL)/20));
+				}
+			}
+		}
 		
 		g.drawImage(box.objectImage,box.x,box.y,null);
 	}
@@ -642,6 +665,12 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	@Override
 	public void mousePressed(MouseEvent e) {		
 			fired = true;
+			mouseXY[0] = e.getX() - team1.get((playerTurn-1)/2).getX();// gets x of mouse
+			// and takes away
+			// player x
+			mouseXY[1] = team1.get((playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+			// and adds
+// player y
 
 	}
 
