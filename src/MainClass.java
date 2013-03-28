@@ -142,13 +142,12 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				if (timeLeftInTurn == 0) {
-					System.out.println(playerTurn);
-					System.out.println((playerTurn-1)/2);
+				if (timeLeftInTurn == 0 || weaponsUsedInTurn == 3) {
+					fired = false;
 					if(playerTurn==8){
 						playerTurn=1;
 					}else{playerTurn++;}
-					
+					SoundEffect.SHOTGUNRELOAD.play();
 					weaponsUsedInTurn = 0;
 					timeLeftInTurn = 30;
 				} else
@@ -406,7 +405,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		moving++;
 													// timer activates it
 		// drop in box at end of turn
-		if(timeLeftInTurn==0){
+		if(timeLeftInTurn==0 || weaponsUsedInTurn > 0){
 			box.make();
 			drop=true;
 			}
@@ -429,6 +428,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 									// when log timer is active
 		} else {
 			clickVelocity = 0;
+		}
+		if(clickVelocity> 2000){
+			clickVelocity -= 20;
 		}
 				
 	}

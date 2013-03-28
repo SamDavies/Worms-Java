@@ -103,7 +103,7 @@ public class StartGame extends JFrame implements ActionListener { //the class th
 				this.currentMap++;
 				}
 			
-			else if(mainclass.team2.get(0).playerHealth==0){
+			else if(mainclass.team2.get(0).playerHealth==0 && mainclass.team2.get(1).playerHealth==0 && mainclass.team2.get(2).playerHealth==0 && mainclass.team2.get(3).playerHealth==0){
 				this.setVisible(false);
 				this.remove(mainclass);
 				MapWinner[currentMap]=this.getPlayer1Name();
@@ -127,7 +127,7 @@ public class StartGame extends JFrame implements ActionListener { //the class th
 				this.currentMap++;
 				}
 			
-			if(mainclass.team1.get(0).playerHealth==0){
+			if(mainclass.team1.get(0).playerHealth==0 && mainclass.team1.get(1).playerHealth==0 && mainclass.team1.get(2).playerHealth==0 && mainclass.team1.get(3).playerHealth==0){
 				this.setVisible(false);
 				this.remove(mainclass);
 				MapWinner[currentMap]=this.getPlayer2Name();

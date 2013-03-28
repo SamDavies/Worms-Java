@@ -21,7 +21,8 @@ public enum SoundEffect {
    WORMPOP("sounds/WORMPOP.WAV"), 
    WORMIMPACT("sounds/WORMIMPACT.WAV"), 
    BACKFLIP("sounds/Walk-Expand.wav"), 
-   DAMAGE("sounds/damage.wav");
+   DAMAGE("sounds/damage.wav"), 
+   SHOTGUNRELOAD("sounds/SHOTGUNRELOAD.WAV");
    
    // GONG("gong.wav"),         // gong
    // SHOOT("shoot.wav");       // bullet
