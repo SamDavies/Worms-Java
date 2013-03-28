@@ -45,7 +45,8 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	private String player2Name;
 
 	MainPlayer p; 
-	 
+	boolean move = true;
+	int moving = 0;
 	
 	int boxPos= -200;
 	int randX = 0;
@@ -212,7 +213,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	}
 
 	public void keyPressed(KeyEvent e) { // fires automatically when a key is
-		// pressed
+		if(move== true){
 		int keycode = e.getKeyCode();
 		if (pressedKeys.contains(keycode) == false) {
 			pressedKeys.add(keycode);
@@ -228,9 +229,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				playerJump();
 			}
 			if (pressedKeys.contains(KeyEvent.VK_RIGHT))
-				p.moveRight(1);
+				p.moveRight(3);
 			if (pressedKeys.contains(KeyEvent.VK_LEFT))
-				p.moveLeft(1);
+				p.moveLeft(3);
 			if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
 				//weaponLaunch();
 			}
@@ -245,18 +246,15 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 				playerJump();
 			}
 			if (pressedKeys.contains(KeyEvent.VK_RIGHT))
-				p.moveRight(1);
+				p.moveRight(3);
 			if (pressedKeys.contains(KeyEvent.VK_LEFT))
-				p.moveLeft(1);
+				p.moveLeft(3);
 			if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
 				//weaponLaunch();
 			}
 		}
-
-		// weapon launch
-
-		// weapon launch
-
+		move = false;
+		}
 	}
 
 	public void changeWeapon(int player) {
@@ -403,7 +401,9 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 	}
 
 	public void actionPerformed(ActionEvent e) { // fires automatically when an
-													// event happens i.e. when
+		if(moving%6 == 0) //slows movement
+			{move = true;}
+		moving++;
 													// timer activates it
 		// drop in box at end of turn
 		if(timeLeftInTurn==0){

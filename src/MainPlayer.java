@@ -58,8 +58,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 		playerRectangleDown = new Rectangle(x, y, playerImage.getWidth(null),
 				playerImage.getHeight(null) + 2);
 		CollisionRectangle = new Rectangle(x, y, playerImage.getWidth(null),
-				playerImage.getHeight(null));
-		ImageIcon tempImageIcon = new ImageIcon("background.jpg");
+				playerImage.getHeight(null));		
 		staticobjects = s;
 		reactiveobjects = r;
 		lineBottom = new Line2D.Double(0.0, 600.0, 800.0, 600.0);
@@ -77,23 +76,25 @@ public class MainPlayer implements ActionListener { // the class for the user
 
 	public void loadAnnimationImages() {
 		ImageIcon tempImageIcon;
-		annimationImages = new Image[5]; // this function allocates space in the
+		annimationImages = new Image[6]; // this function allocates space in the
 											// memory for the images of
-		tempImageIcon = new ImageIcon("walking1.png"); // the player and
+		tempImageIcon = new ImageIcon("images/player/Worm4.png"); // the player and
 															// retrieves the
 															// images from
 															// the file system
 		annimationImages[0] = tempImageIcon.getImage(); // images with index 0
 														// and 1 are for moving
 														// right and 2 and 3 are
-		tempImageIcon = new ImageIcon("walking2.png"); // for moving left
+		tempImageIcon = new ImageIcon("images/player/Worm5.png"); // for moving left
 		annimationImages[1] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("walking3.png");
+		tempImageIcon = new ImageIcon("images/player/Worm6.png");
 		annimationImages[2] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("walking4.png");
+		tempImageIcon = new ImageIcon("images/player/Worm1.png");
 		annimationImages[3] = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("walking5.png");
+		tempImageIcon = new ImageIcon("images/player/Worm2.png");
 		annimationImages[4] = tempImageIcon.getImage();
+		tempImageIcon = new ImageIcon("images/player/Worm3.png");
+		annimationImages[5] = tempImageIcon.getImage();
 
 	}
 
@@ -363,17 +364,16 @@ public class MainPlayer implements ActionListener { // the class for the user
 	public void moveRight(int amount) {
 		this.setDirectionRight(true);
 
-		if (playerImage.equals(annimationImages[0])) {
+		if (playerImage.equals(annimationImages[0]) | playerImage.equals(annimationImages[3]) | playerImage.equals(annimationImages[4]) | playerImage.equals(annimationImages[5])) {
 			playerImage = annimationImages[1];
 		}else if (playerImage.equals(annimationImages[1])) {
 			playerImage = annimationImages[2];				
 		}else if (playerImage.equals(annimationImages[2])) {
-			playerImage = annimationImages[3];				
-		}else if (playerImage.equals(annimationImages[3])) {
-			playerImage = annimationImages[4];				
-		}else if (playerImage.equals(annimationImages[4])) {
-			playerImage = annimationImages[0];				
+			playerImage = annimationImages[0];	
 		}
+		
+					
+		
 		
 
 		if (this.x < 950 & this.x>0) // this functions moves the player to the right
@@ -387,11 +387,14 @@ public class MainPlayer implements ActionListener { // the class for the user
 
 	public void moveLeft(int amount) {
 		directionRight = false;
-		if (!playerImage.equals(annimationImages[2]))
-			playerImage = annimationImages[2];
-		else if(playerImage.equals(annimationImages[2])){
-			playerImage = annimationImages[3]; // this function moves the player
-		}								// to the left
+		if (playerImage.equals(annimationImages[3]) | playerImage.equals(annimationImages[0]) | playerImage.equals(annimationImages[1]) | playerImage.equals(annimationImages[2]))
+			playerImage = annimationImages[4];
+		else if(playerImage.equals(annimationImages[4])){
+			playerImage = annimationImages[5]; 
+		}else if(playerImage.equals(annimationImages[5])){
+			playerImage = annimationImages[3]; 
+		}											
+		
 		if (this.x > 0 & this.x < 950)
 			if (checkCollisionLeft(staticobjects, reactiveobjects) == false) {
 				this.addX(-amount);
