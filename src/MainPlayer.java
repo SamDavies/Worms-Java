@@ -34,13 +34,13 @@ public class MainPlayer implements ActionListener { // the class for the user
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
 											// arraylists that are created
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
-	ArrayList<MainPlayer> enemies = new ArrayList<MainPlayer>();
+	ArrayList<MainPlayer> enemies;
 	Timer timer;
 	int gravityIncrment = 0;	
 	int jumpQuantity;
 	boolean canDoubleJump = false;
-	private int grenadesAvailable = 50;
-	private int missilesAvailable = 5;
+	private int grenadesAvailable = 5;
+	private int missilesAvailable = 10;
 
 	public MainPlayer(int xvalue, int yvalue, ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r, ArrayList<MainPlayer> enemies) {

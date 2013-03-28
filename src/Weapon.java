@@ -26,10 +26,11 @@ public class Weapon implements ActionListener {
 											// object
 	private Rectangle rectangle;
 	private Timer timer;
-	private MainPlayer player, enemy;
+	private MainPlayer player;
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
 											// arraylists that are created
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
+	ArrayList<MainPlayer> enemies;
 	private int[][] trajectoryIncrements; // used to store the trajectory
 	private int trajectoryIndex; // this represents the index in
 	private int expIndex; // trajectoryIncrements
@@ -39,19 +40,19 @@ public class Weapon implements ActionListener {
 
 	// that we are currently at
 
-	public Weapon(MainPlayer p, MainPlayer enemy, ArrayList<StaticObjects> s,
+	public Weapon(MainPlayer p, ArrayList<MainPlayer> enemies, ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r, boolean l, double velocity,
 			double angle) {
 		trajectoryIncrements = calculateTrajectory(velocity, angle);
 		visible = true;
 		staticobjects = s;
 		reactiveobjects = r;
+		this.enemies = enemies;
 
 		loadAnnimationImages();
 		loadDestructionImages();
 		this.player = p;
-		this.player.setGrenadesAvailable(player.getGrenadesAvailable() - 1);
-		this.enemy = enemy;
+		this.player.setGrenadesAvailable(player.getGrenadesAvailable() - 1);		
 		if (l == true) {
 			x = p.x + p.playerImage.getWidth(null);
 			y = p.y;
@@ -91,16 +92,17 @@ public class Weapon implements ActionListener {
 	}
 
 	public boolean checkCollisionEnemy() {
-		if (enemy != null)
-			if (rectangle.intersects(enemy.CollisionRectangle)) {
+		for(int i=0; i<4; i++){
+			if (rectangle.intersects(enemies.get(i).CollisionRectangle)) {
 				if (this.isDestroyed == false) {
-					enemy.getsHit(20);
+					enemies.get(i).getsHit(20);
 					this.hasHitEnemyDirectly = true;
 				//} else if (this.hasHitEnemyDirectly == false){
 				//	enemy.getsHit(15);					
 				}
 				return true;
 			}
+		}
 		return false;
 	}
 
@@ -136,8 +138,10 @@ public class Weapon implements ActionListener {
 				}
 			}
 			//damages players
-			if(collisionCircle.intersects(enemy.CollisionRectangle)){
-				enemy.getsHit(15);
+			for(int i=0; i<4; i++){
+				if(collisionCircle.intersects(enemies.get(i).CollisionRectangle)){
+					enemies.get(i).getsHit(15);
+				}
 			}
 			if(collisionCircle.intersects(player.CollisionRectangle)){
 				player.getsHit(15);
@@ -226,8 +230,7 @@ public class Weapon implements ActionListener {
 	public void updateSystemVariables(ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r) {
 		staticobjects = s;
-		reactiveobjects = r;
-		this.enemy = enemy;
+		reactiveobjects = r;		
 	}
 
 	public void updateRectangle() {
