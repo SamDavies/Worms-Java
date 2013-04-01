@@ -503,5 +503,6 @@ public class MainPlayer implements ActionListener { // the class for the user
 		} else
 			jump();
 	}
-
+	
+	
 }

@@ -24,16 +24,20 @@ public class Weapon implements ActionListener {
 	int x, y; // x and y coordinate for drawing the image on the screen
 	private int imageWidth, imageHeight; // width and height of the image of the
 											// object
-	private Rectangle rectangle;
-	private Timer timer;
+	public Rectangle rectangle;
+	public Timer timer;
 	private MainPlayer player;
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
 											// arraylists that are created
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
 	ArrayList<MainPlayer> enemies;
-	private int[][] trajectoryIncrements; // used to store the trajectory
-	private int trajectoryIndex; // this represents the index in
+	public int[][] trajectoryIncrements; // used to store the trajectory
+	public int trajectoryIndex; // this represents the index in
 	private int expIndex; // trajectoryIncrements
+	
+	public double velocity;
+	public double angle;
+	public int timeToExplode = 0;
 
 	
 	RoundCollision collisionCircle = new RoundCollision(this.x+(this.imageWidth/2), this.y+(this.imageHeight/2), 10);
@@ -48,6 +52,8 @@ public class Weapon implements ActionListener {
 		staticobjects = s;
 		reactiveobjects = r;
 		this.enemies = enemies;
+		this.velocity = velocity;
+		this.angle = angle;
 
 		loadAnnimationImages();
 		loadDestructionImages();
@@ -144,7 +150,7 @@ public class Weapon implements ActionListener {
 				}
 			}
 			if(collisionCircle.intersects(player.CollisionRectangle)){
-				player.getsHit(15);
+				player.getsHit(100);
 			}
 			//damages players
 			
@@ -252,6 +258,7 @@ public class Weapon implements ActionListener {
 							currentImage = annimationImages
 									.get(trajectoryIndex % 16);
 							trajectoryIndex++;
+							timeToExplode++;
 						} else
 							destroy();
 					} else
