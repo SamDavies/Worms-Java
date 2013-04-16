@@ -369,7 +369,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		
 		
 		if(timeLeftInTurn==0){
-				
+			boxPos = -200;				
 			box.make();
 			drop=true;
 			actionSwitcher = false;
@@ -398,7 +398,7 @@ public class MainClass extends JPanel implements ActionListener, KeyListener,
 		} else {
 			clickVelocity = 0;
 		}
-		if(clickVelocity> 2000){
+		if(clickVelocity> 5000){
 			clickVelocity -= 20;
 		}
 				

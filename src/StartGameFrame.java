@@ -1,8 +1,11 @@
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
 
 public class StartGameFrame extends JPanel {
@@ -12,6 +15,8 @@ public class StartGameFrame extends JPanel {
 	JTextArea textArea;
 	public StartGameFrame() {
 		setLayout(null);
+		
+		
 		
 		JLabel lblNewLabel = new JLabel("Player 1 Name");
 		lblNewLabel.setBounds(180, 305, 108, 14);
@@ -36,4 +41,5 @@ public class StartGameFrame extends JPanel {
 		add(btnNewButton);
 
 	}
+	
 }
